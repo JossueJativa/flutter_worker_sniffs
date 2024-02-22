@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
@@ -31,11 +33,14 @@ class _ClientScreenState extends State<ClientScreen> {
     _usernameController.text = widget.clientData['username'];
     _identityController.text = widget.clientData['identity'];
     _phoneController.text = widget.clientData['phone'];
-    _priceController.text = widget.clientData['total_price'];
+    _priceController.text = widget.clientData['total_price'].toString();
     _dateController.text = widget.clientData['date_instalation'];
-    _partOfDayController.text = widget.clientData['part_of_day'];
-    _statusInstalationController.text = widget.clientData['status_instalation'];
-    _isAcceptedController.text = widget.clientData['is_accepted_by_manager'];
+    _partOfDayController.text =
+        utf8.decode(widget.clientData['part_of_day'].runes.toList());
+    _statusInstalationController.text =
+        widget.clientData['status_instalation'] ?? 'Pendiente';
+    _isAcceptedController.text =
+        widget.clientData['is_accepted_by_manager'].toString();
     _optionsToInstallController.text =
         widget.clientData['options_to_give_instalation'];
   }
@@ -84,7 +89,7 @@ class _ClientScreenState extends State<ClientScreen> {
             ShowInfo(
               controller: _priceController,
               name: 'Precio a pagar',
-              labelText: widget.clientData['total_price'],
+              labelText: widget.clientData['total_price'].toString(),
               hintText: 'Ingrese nuevo precio a pagar',
               icon: Icons.attach_money,
               isPassword: false,
@@ -120,7 +125,7 @@ class _ClientScreenState extends State<ClientScreen> {
             ShowInfo(
               controller: _isAcceptedController,
               name: 'Aceptado por el manager',
-              labelText: widget.clientData['is_accepted_by_manager'],
+              labelText: widget.clientData['is_accepted_by_manager'].toString(),
               hintText: 'Ingrese si fue aceptado por el manager',
               icon: Icons.check_circle,
               isPassword: false,
@@ -131,7 +136,7 @@ class _ClientScreenState extends State<ClientScreen> {
               name: 'Opciones de instalacion',
               labelText: widget.clientData['options_to_give_instalation'],
               hintText: 'Ingrese nuevas opciones de instalacion',
-              icon: Icons.check_circle,
+              icon: Icons.delivery_dining,
               isPassword: false,
               isDigit: false,
             ),

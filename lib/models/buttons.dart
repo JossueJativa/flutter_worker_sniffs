@@ -3,11 +3,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
 ElevatedButton normalButton({
-  required String text, 
-  required VoidCallback onPressed, 
+  required String text,
+  required VoidCallback onPressed,
   required Color color,
   required Color textColor,
 }) {
@@ -23,124 +23,125 @@ ElevatedButton normalButton({
         borderRadius: BorderRadius.circular(20),
       ),
     ),
-    child: Text(text, style: TextStyle(fontSize: 20, color: textColor),),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 20, color: textColor),
+    ),
   );
 }
 
-class InputImage extends StatefulWidget {
-  final String labelText;
-  final String hintText;
-  final dynamic image; // Cambié el tipo de File a dynamic para manejar tanto File como String
-  final Function(dynamic)? onImageSelected; // Cambié el tipo de File a dynamic para manejar tanto File como String
-  
-  const InputImage({super.key, required this.labelText, required this.hintText, required this.image, this.onImageSelected});
+// class InputImage extends StatefulWidget {
+//   final String labelText;
+//   final String hintText;
+//   final dynamic image; // Cambié el tipo de File a dynamic para manejar tanto File como String
+//   final Function(dynamic)? onImageSelected; // Cambié el tipo de File a dynamic para manejar tanto File como String
 
-  @override
-  _InputImageState createState() => _InputImageState();
-}
+//   const InputImage({super.key, required this.labelText, required this.hintText, required this.image, this.onImageSelected});
 
-class _InputImageState extends State<InputImage> {
-  Future<void> _getImage(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
-    if (pickedFile != null) {
-      setState(() {
-        widget.onImageSelected!(File(pickedFile.path)); // Notificar al padre que se ha seleccionado una imagen
-      });
-    }
-  }
+//   @override
+//   _InputImageState createState() => _InputImageState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            widget.labelText,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        SizedBox(
-          width: 380,
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text("Seleccionar fuente de imagen"),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: <Widget>[
-                          GestureDetector(
-                            child: const Text("Tomar foto"),
-                            onTap: () {
-                              Navigator.pop(context);
-                              _getImage(ImageSource.camera);
-                            },
-                          ),
-                          const Padding(padding: EdgeInsets.all(8.0)),
-                          GestureDetector(
-                            child: const Text("Seleccionar de galería"),
-                            onTap: () {
-                              Navigator.pop(context);
-                              _getImage(ImageSource.gallery);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            child: Row(
-              children: [
-                Text(
-                  widget.hintText,
-                  style: const TextStyle(fontSize: 20, color: Colors.black),
-                ),
-                const Spacer(),
-                const Icon(Icons.image, color: Colors.black),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        if (widget.image != null) // Verificar si hay una imagen
-          SizedBox(
-            width: 380,
-            height: 380,
-            child: (widget.image is File) // Verificar si la imagen es de tipo File
-                ? Image.file(
-                    widget.image as File,
-                    fit: BoxFit.cover,
-                  )
-                : Image.network(
-                    widget.image as String, // Si no es de tipo File, asumimos que es una URL de red
-                    fit: BoxFit.cover,
-                  ),
-          ),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
-}
+// class _InputImageState extends State<InputImage> {
+//   Future<void> _getImage(ImageSource source) async {
+//     final picker = ImagePicker();
+//     final pickedFile = await picker.pickImage(source: source);
+//     if (pickedFile != null) {
+//       setState(() {
+//         widget.onImageSelected!(File(pickedFile.path)); // Notificar al padre que se ha seleccionado una imagen
+//       });
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Align(
+//           alignment: Alignment.centerLeft,
+//           child: Text(
+//             widget.labelText,
+//             style: const TextStyle(
+//               color: Colors.white,
+//               fontSize: 20,
+//               fontWeight: FontWeight.bold,
+//             ),
+//           ),
+//         ),
+//         const SizedBox(height: 10),
+//         SizedBox(
+//           width: 380,
+//           height: 50,
+//           child: ElevatedButton(
+//             onPressed: () {
+//               showDialog(
+//                 context: context,
+//                 builder: (BuildContext context) {
+//                   return AlertDialog(
+//                     title: const Text("Seleccionar fuente de imagen"),
+//                     content: SingleChildScrollView(
+//                       child: ListBody(
+//                         children: <Widget>[
+//                           GestureDetector(
+//                             child: const Text("Tomar foto"),
+//                             onTap: () {
+//                               Navigator.pop(context);
+//                               _getImage(ImageSource.camera);
+//                             },
+//                           ),
+//                           const Padding(padding: EdgeInsets.all(8.0)),
+//                           GestureDetector(
+//                             child: const Text("Seleccionar de galería"),
+//                             onTap: () {
+//                               Navigator.pop(context);
+//                               _getImage(ImageSource.gallery);
+//                             },
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   );
+//                 },
+//               );
+//             },
+//             child: Row(
+//               children: [
+//                 Text(
+//                   widget.hintText,
+//                   style: const TextStyle(fontSize: 20, color: Colors.black),
+//                 ),
+//                 const Spacer(),
+//                 const Icon(Icons.image, color: Colors.black),
+//               ],
+//             ),
+//           ),
+//         ),
+//         const SizedBox(height: 10),
+//         if (widget.image != null) // Verificar si hay una imagen
+//           SizedBox(
+//             width: 380,
+//             height: 380,
+//             child: (widget.image is File) // Verificar si la imagen es de tipo File
+//                 ? Image.file(
+//                     widget.image as File,
+//                     fit: BoxFit.cover,
+//                   )
+//                 : Image.network(
+//                     widget.image as String, // Si no es de tipo File, asumimos que es una URL de red
+//                     fit: BoxFit.cover,
+//                   ),
+//           ),
+//         const SizedBox(height: 20),
+//       ],
+//     );
+//   }
+// }
 
 class DropDownMenuManager extends StatefulWidget {
   String text;
   final TextEditingController controller;
-  DropDownMenuManager({
-    super.key,
-    required this.text, required this.controller
-  });
+  DropDownMenuManager(
+      {super.key, required this.text, required this.controller});
 
   @override
   _DropDownMenuManagerState createState() => _DropDownMenuManagerState();
@@ -157,18 +158,21 @@ class _DropDownMenuManagerState extends State<DropDownMenuManager> {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text(widget.text, style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            child: Text(
+              widget.text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
         const SizedBox(height: 10),
         InkWell(
           onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode()); // Para cerrar el teclado si está abierto
+            FocusScope.of(context).requestFocus(
+                FocusNode()); // Para cerrar el teclado si está abierto
             _showDropDownMenu(context);
           },
           child: Container(

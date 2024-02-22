@@ -27,7 +27,8 @@ class _ManagerScreenState extends State<ManagerScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _typeController = TextEditingController();
 
   File? _selectedImage;
@@ -49,10 +50,10 @@ class _ManagerScreenState extends State<ManagerScreen> {
             child: Column(
               children: [
                 const Text(
-                  "Crear Usuario", 
+                  "Crear Usuario",
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 20, 
+                    color: Colors.white,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
                     decorationColor: Colors.white,
@@ -117,10 +118,10 @@ class _ManagerScreenState extends State<ManagerScreen> {
                   isDigit: false,
                 ),
                 const Text(
-                  "Asignar tipo de trabajador", 
+                  "Asignar tipo de trabajador",
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 20, 
+                    color: Colors.white,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
                     decorationColor: Colors.white,
@@ -135,16 +136,16 @@ class _ManagerScreenState extends State<ManagerScreen> {
                 ),
                 const SizedBox(height: 20),
                 // Widget para cargar una imagen
-                InputImage(
-                  hintText: "Subir foto del trabajador",
-                  labelText: "Foto del trabajador",
-                  onImageSelected: (image) {
-                    setState(() {
-                      _selectedImage = image;
-                    });
-                  },
-                  image: _selectedImage,
-                ),
+                // InputImage(
+                //   hintText: "Subir foto del trabajador",
+                //   labelText: "Foto del trabajador",
+                //   onImageSelected: (image) {
+                //     setState(() {
+                //       _selectedImage = image;
+                //     });
+                //   },
+                //   image: _selectedImage,
+                // ),
                 const SizedBox(height: 20),
                 // Botón para registrar el usuario
                 normalButton(
@@ -158,7 +159,8 @@ class _ManagerScreenState extends State<ManagerScreen> {
                     isValid = isValid && _phoneController.text.isNotEmpty;
                     isValid = isValid && _idController.text.isNotEmpty;
                     isValid = isValid && _passwordController.text.isNotEmpty;
-                    isValid = isValid && _confirmPasswordController.text.isNotEmpty;
+                    isValid =
+                        isValid && _confirmPasswordController.text.isNotEmpty;
                     isValid = isValid && _typeController.text.isNotEmpty;
                     isValid = isValid && _selectedImage != null;
 
@@ -182,8 +184,11 @@ class _ManagerScreenState extends State<ManagerScreen> {
                       );
 
                       if (response['status']) {
-                        if (_typeController.text == "Call Center"){
-                          bool createResponse = await createCallCenter(_selectedImage!, response['data']['id'].toString(), 'api/callcenter/');
+                        if (_typeController.text == "Call Center") {
+                          bool createResponse = await createCallCenter(
+                              _selectedImage!,
+                              response['data']['id'].toString(),
+                              'api/callcenter/');
                           if (createResponse) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -191,7 +196,8 @@ class _ManagerScreenState extends State<ManagerScreen> {
                                 backgroundColor: Colors.green,
                               ),
                             );
-                            Navigator.popAndPushNamed(context, '/manager', arguments: widget.data);
+                            Navigator.popAndPushNamed(context, '/manager',
+                                arguments: widget.data);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -210,7 +216,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
                         );
                       }
                     }
-                  }, 
+                  },
                   color: Colors.green,
                   textColor: Colors.white,
                 ),
