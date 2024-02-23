@@ -135,7 +135,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
                   controller: _typeController,
                 ),
                 const SizedBox(height: 20),
-                // Widget para cargar una imagen
+                // // Widget para cargar una imagen
                 // InputImage(
                 //   hintText: "Subir foto del trabajador",
                 //   labelText: "Foto del trabajador",

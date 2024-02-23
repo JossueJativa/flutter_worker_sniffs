@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -32,10 +33,17 @@ ElevatedButton normalButton({
 // class InputImage extends StatefulWidget {
 //   final String labelText;
 //   final String hintText;
-//   final dynamic image; // Cambié el tipo de File a dynamic para manejar tanto File como String
-//   final Function(dynamic)? onImageSelected; // Cambié el tipo de File a dynamic para manejar tanto File como String
+//   final dynamic
+//       image; // Cambié el tipo de File a dynamic para manejar tanto File como String
+//   final Function(dynamic)?
+//       onImageSelected; // Cambié el tipo de File a dynamic para manejar tanto File como String
 
-//   const InputImage({super.key, required this.labelText, required this.hintText, required this.image, this.onImageSelected});
+//   const InputImage(
+//       {super.key,
+//       required this.labelText,
+//       required this.hintText,
+//       required this.image,
+//       this.onImageSelected});
 
 //   @override
 //   _InputImageState createState() => _InputImageState();
@@ -47,7 +55,8 @@ ElevatedButton normalButton({
 //     final pickedFile = await picker.pickImage(source: source);
 //     if (pickedFile != null) {
 //       setState(() {
-//         widget.onImageSelected!(File(pickedFile.path)); // Notificar al padre que se ha seleccionado una imagen
+//         widget.onImageSelected!(File(pickedFile
+//             .path)); // Notificar al padre que se ha seleccionado una imagen
 //       });
 //     }
 //   }
@@ -120,15 +129,17 @@ ElevatedButton normalButton({
 //           SizedBox(
 //             width: 380,
 //             height: 380,
-//             child: (widget.image is File) // Verificar si la imagen es de tipo File
-//                 ? Image.file(
-//                     widget.image as File,
-//                     fit: BoxFit.cover,
-//                   )
-//                 : Image.network(
-//                     widget.image as String, // Si no es de tipo File, asumimos que es una URL de red
-//                     fit: BoxFit.cover,
-//                   ),
+//             child:
+//                 (widget.image is File) // Verificar si la imagen es de tipo File
+//                     ? Image.file(
+//                         widget.image as File,
+//                         fit: BoxFit.cover,
+//                       )
+//                     : Image.network(
+//                         widget.image
+//                             as String, // Si no es de tipo File, asumimos que es una URL de red
+//                         fit: BoxFit.cover,
+//                       ),
 //           ),
 //         const SizedBox(height: 20),
 //       ],
