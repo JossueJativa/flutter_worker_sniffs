@@ -293,3 +293,24 @@ Future<Map<String, dynamic>> getClientByIdentity(
     };
   });
 }
+
+Future<bool> changeStatusClient(String url, String id, String status) async {
+  final url0 = Uri.parse('$_allurl/$url$id/');
+  final response = await http.patch(url0, body: {
+    'is_accepted_by_manager': status,
+  });
+
+  if (response.statusCode == 200) {
+    if (status == 'Aceptado') {
+      print("aceptado");
+      final urlAsign =
+          Uri.parse('$_allurl/api/tecnic/assign-client-to-tecnic/$id/');
+      final responseAsign = await http.post(urlAsign);
+      if (responseAsign.statusCode == 201) {
+        return true;
+      }
+    }
+    return true;
+  }
+  return false;
+}

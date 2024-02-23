@@ -1,9 +1,11 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
+import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
 
 class ClientScreen extends StatefulWidget {
@@ -40,7 +42,7 @@ class _ClientScreenState extends State<ClientScreen> {
     _statusInstalationController.text =
         widget.clientData['status_instalation'] ?? 'Pendiente';
     _isAcceptedController.text =
-        widget.clientData['is_accepted_by_manager'].toString();
+        utf8.decode(widget.clientData['is_accepted_by_manager'].runes.toList());
     _optionsToInstallController.text =
         widget.clientData['options_to_give_instalation'];
   }
@@ -154,6 +156,51 @@ class _ClientScreenState extends State<ClientScreen> {
               widget.clientData['photo_reciept'],
               width: 380,
               height: 380,
+            ),
+            normalButton(
+              text: 'Aceptar Comprobante',
+              onPressed: () async {
+                bool status = await changeStatusClient(
+                  'api/client/',
+                  widget.clientData['id'].toString(),
+                  'Aceptado',
+                );
+
+                if (status) {
+                  Navigator.pop(context);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Error al aceptar comprobante'),
+                    ),
+                  );
+                }
+              },
+              color: Colors.green,
+              textColor: Colors.white,
+            ),
+            const SizedBox(height: 10),
+            normalButton(
+              text: 'Rechazar Comprobante',
+              onPressed: () async {
+                bool status = await changeStatusClient(
+                  'api/client/',
+                  widget.clientData['id'].toString(),
+                  'Rechazado',
+                );
+
+                if (status) {
+                  Navigator.pop(context);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Error al rechazar comprobante'),
+                    ),
+                  );
+                }
+              },
+              color: Colors.red,
+              textColor: Colors.white,
             ),
           ],
         ),

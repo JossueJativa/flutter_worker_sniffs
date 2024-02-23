@@ -153,7 +153,7 @@ class Tables3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TableWidget(
-        apiUrl: 'api/client/', labelName: 'Lista de Técnicos', currentData: 1);
+        apiUrl: 'api/client/', labelName: 'Lista de Clientes', currentData: 1);
   }
 }
 
