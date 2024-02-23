@@ -1,4 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
@@ -191,7 +193,11 @@ Future<List<TableInfo>> getTableInfo(String url,
         },
         child: const Text('Ver más'),
       );
-      TableInfo info = TableInfo(username: username, id: id, button: button);
+      TableInfo info = TableInfo(
+        username: username,
+        id: id,
+        button: button,
+      );
       tableInfoList.add(info);
     }
   }
@@ -205,20 +211,27 @@ Future<List<TableInfo>> getTableClientsInfo(String url,
   if (clientsData['status'] == true) {
     List<dynamic> clients = clientsData['data'];
     for (var client in clients) {
-      String username = client['username'];
-      String id = client['identity'];
-      ElevatedButton button = ElevatedButton(
-        onPressed: () {
-          Navigator.pushNamed(
-            context!,
-            '/client',
-            arguments: client,
-          );
-        },
-        child: const Text('Ver más'),
-      );
-      TableInfo info = TableInfo(username: username, id: id, button: button);
-      tableInfoList.add(info);
+      if (utf8.decode(client['is_accepted_by_manager'].runes.toList()) ==
+          'Esperando Aprobación') {
+        String username = client['username'];
+        String id = client['identity'];
+        ElevatedButton button = ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context!,
+              '/client',
+              arguments: client,
+            );
+          },
+          child: const Text('Ver más'),
+        );
+        TableInfo info = TableInfo(
+          username: username,
+          id: id,
+          button: button,
+        );
+        tableInfoList.add(info);
+      }
     }
   }
   return tableInfoList;
