@@ -302,7 +302,6 @@ Future<bool> changeStatusClient(String url, String id, String status) async {
 
   if (response.statusCode == 200) {
     if (status == 'Aceptado') {
-      print("aceptado");
       final urlAsign =
           Uri.parse('$_allurl/api/tecnic/assign-client-to-tecnic/$id/');
       final responseAsign = await http.post(urlAsign);
