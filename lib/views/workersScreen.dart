@@ -1,11 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
 import 'package:flutter_worker_sniffs/models/tables.dart';
+import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 
 class WorkersScreen extends StatefulWidget {
   final Map<String, dynamic> data;
-  const WorkersScreen({ super.key, required this.data });
+  const WorkersScreen({super.key, required this.data});
 
   @override
   _WorkersScreenState createState() => _WorkersScreenState();
@@ -13,7 +17,7 @@ class WorkersScreen extends StatefulWidget {
 
 class _WorkersScreenState extends State<WorkersScreen> {
   final TextEditingController _identityController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +38,29 @@ class _WorkersScreenState extends State<WorkersScreen> {
               controller: _identityController,
               icon: Icons.search,
               isDigit: true,
+              callback: () async {
+                Map<String, dynamic> data = await getWorkerByIdentity(
+                  "api/user/search-by-identity/",
+                  _identityController.text,
+                );
+
+                if (data['status']) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WorkerScreen(
+                        workerData: data['data'],
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('No se encontró el trabajador'),
+                    ),
+                  );
+                }
+              },
             ),
             const SizedBox(height: 10),
             const Tables1(),

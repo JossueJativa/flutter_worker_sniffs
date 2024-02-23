@@ -52,17 +52,21 @@ class _inputInfoState extends State<inputInfo> {
               hintText: widget.hintText,
               fillColor: Colors.white,
               filled: true,
-              suffixIcon: widget.isPassword ? IconButton(
-                icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              ) : const Icon(
-                Icons.email,
-                color: Colors.black,
-              ),
+              suffixIcon: widget.isPassword
+                  ? IconButton(
+                      icon: Icon(_obscureText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    )
+                  : const Icon(
+                      Icons.email,
+                      color: Colors.black,
+                    ),
             ),
             obscureText: widget.isPassword ? _obscureText : false,
             controller: widget.controller,
@@ -119,7 +123,8 @@ class _DataInfoState extends State<DataInfo> {
           ),
           const SizedBox(height: 10),
           TextField(
-            keyboardType: widget.isDigit ? TextInputType.number : TextInputType.text,
+            keyboardType:
+                widget.isDigit ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: widget.labelText,
@@ -132,17 +137,21 @@ class _DataInfoState extends State<DataInfo> {
               hintText: widget.hintText,
               fillColor: Colors.white,
               filled: true,
-              suffixIcon: widget.isPassword ? IconButton(
-                icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              ) : Icon(
-                widget.icon,
-                color: Colors.black,
-              ),
+              suffixIcon: widget.isPassword
+                  ? IconButton(
+                      icon: Icon(_obscureText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    )
+                  : Icon(
+                      widget.icon,
+                      color: Colors.black,
+                    ),
             ),
             controller: widget.controller,
             style: const TextStyle(
@@ -163,6 +172,7 @@ class SearchInput extends StatefulWidget {
   final TextEditingController controller;
   final IconData icon;
   final bool isDigit;
+  final VoidCallback callback;
 
   const SearchInput({
     Key? key,
@@ -171,6 +181,7 @@ class SearchInput extends StatefulWidget {
     required this.controller,
     required this.icon,
     required this.isDigit,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -203,7 +214,9 @@ class _SearchInputState extends State<SearchInput> {
                 children: [
                   Expanded(
                     child: TextField(
-                      keyboardType: widget.isDigit ? TextInputType.number : TextInputType.text,
+                      keyboardType: widget.isDigit
+                          ? TextInputType.number
+                          : TextInputType.text,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: widget.hintText,
@@ -230,7 +243,7 @@ class _SearchInputState extends State<SearchInput> {
                     height: 65,
                     child: FloatingActionButton(
                       onPressed: () {
-                        
+                        widget.callback();
                       },
                       backgroundColor: Colors.white,
                       child: const Icon(Icons.search),
@@ -262,7 +275,8 @@ class ShowInfo extends StatefulWidget {
     required this.isPassword,
     required this.controller,
     required this.icon,
-    required this.isDigit, required this.name,
+    required this.isDigit,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -289,7 +303,8 @@ class _ShowInfoState extends State<ShowInfo> {
           ),
           const SizedBox(height: 10),
           TextField(
-            keyboardType: widget.isDigit ? TextInputType.number : TextInputType.text,
+            keyboardType:
+                widget.isDigit ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: widget.labelText,
@@ -302,17 +317,21 @@ class _ShowInfoState extends State<ShowInfo> {
               hintText: widget.hintText,
               fillColor: Colors.white,
               filled: true,
-              suffixIcon: widget.isPassword ? IconButton(
-                icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              ) : Icon(
-                widget.icon,
-                color: Colors.black,
-              ),
+              suffixIcon: widget.isPassword
+                  ? IconButton(
+                      icon: Icon(_obscureText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    )
+                  : Icon(
+                      widget.icon,
+                      color: Colors.black,
+                    ),
             ),
             controller: widget.controller,
             style: const TextStyle(

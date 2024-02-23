@@ -11,7 +11,10 @@ import 'package:flutter_worker_sniffs/models/inputs.dart';
 
 class WorkerScreen extends StatefulWidget {
   final Map<String, dynamic> workerData;
-  const WorkerScreen({super.key, required this.workerData});
+  const WorkerScreen({
+    super.key,
+    required this.workerData,
+  });
 
   @override
   _WorkerScreenState createState() => _WorkerScreenState();

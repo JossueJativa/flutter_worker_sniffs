@@ -16,7 +16,8 @@ String encryptPassword(String password) {
   return base64Hash;
 }
 
-Future<Map<String, dynamic>> login_api(String? email, String? password, {required String url}) async {
+Future<Map<String, dynamic>> login_api(String? email, String? password,
+    {required String url}) async {
   final url0 = Uri.parse('$_allurl/$url');
 
   if (email == null || password == null) {
@@ -74,7 +75,7 @@ Future<Map<String, dynamic>> login_api(String? email, String? password, {require
         'status': false,
         'data': 'user not found',
       };
-      
+
     default:
       return {
         'status': false,
@@ -91,7 +92,7 @@ Future<Map<String, dynamic>> create_user_api({
   required String phone,
   required String password,
   required String id,
-  }) async {
+}) async {
   final url0 = Uri.parse('$_allurl/$url');
   Map<String, dynamic> data = {
     'first_name': firstName,
@@ -157,7 +158,8 @@ Future<Map<String, dynamic>> get_workers(String url) async {
   };
 }
 
-Future<void> update_worker(String url, String id, Map<String, dynamic> data, BuildContext context, File? image) async {
+Future<void> update_worker(String url, String id, Map<String, dynamic> data,
+    BuildContext context, File? image) async {
   final url0 = Uri.parse('$_allurl/$url$id/');
   final response = await http.patch(url0, body: data);
   if (response.statusCode != 200) {
@@ -183,7 +185,7 @@ Future<void> update_worker(String url, String id, Map<String, dynamic> data, Bui
 
   final urlUser = Uri.parse('$_allurl/api/user/$id/');
   await http.patch(urlUser, body: data);
-  if (image != null){
+  if (image != null) {
     var urlsearch = Uri.parse('$_allurl/api/callcenter/search-by-user/$id/');
     final responseSearchCallCenter = await http.get(urlsearch);
 
@@ -213,4 +215,81 @@ Future<void> update_worker(String url, String id, Map<String, dynamic> data, Bui
     }
   }
   Navigator.pop(context);
+}
+
+Future<Map<String, dynamic>> getWorkerByIdentity(
+    String url, String identity) async {
+  List<dynamic> datasubmit = [];
+  final url0 = Uri.parse('$_allurl/$url$identity/');
+
+  return http.get(url0).then((response) {
+    if (response.statusCode == 200) {
+      final worker = jsonDecode(response.body);
+      final id = worker['id'];
+      final urlUser = Uri.parse('$_allurl/api/callcenter/search-by-user/$id/');
+      try {
+        return http.get(urlUser).then((responseUser) {
+          if (responseUser.statusCode == 200) {
+            final data = jsonDecode(responseUser.body);
+            if (data.length == 0) {
+              return {
+                'status': false,
+              };
+            }
+            data[0]['user'] = worker;
+            datasubmit.add(data[0]);
+            return {
+              'status': true,
+              'data': datasubmit[0],
+            };
+          } else {
+            final urlUser =
+                Uri.parse('$_allurl/api/tecnic/search-by-user/$id/');
+            return http.get(urlUser).then((responseUser) {
+              if (responseUser.statusCode == 200) {
+                final data = jsonDecode(responseUser.body);
+                if (data.length == 0) {
+                  return {
+                    'status': false,
+                  };
+                }
+                data[0]['user'] = worker;
+                datasubmit.add(data[0]);
+                return {
+                  'status': true,
+                  'data': datasubmit[0],
+                };
+              }
+              return {
+                'status': false,
+              };
+            });
+          }
+        });
+      } catch (e) {
+        return {
+          'status': false,
+        };
+      }
+    }
+    return {
+      'status': false,
+    };
+  });
+}
+
+Future<Map<String, dynamic>> getClientByIdentity(
+    String url, String identity) async {
+  final url0 = Uri.parse('$_allurl/$url$identity/');
+  return http.get(url0).then((response) {
+    if (response.statusCode == 200) {
+      return {
+        'status': true,
+        'data': jsonDecode(response.body),
+      };
+    }
+    return {
+      'status': false,
+    };
+  });
 }

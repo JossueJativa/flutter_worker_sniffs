@@ -1,9 +1,11 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
 import 'package:flutter_worker_sniffs/models/tables.dart';
+import 'package:flutter_worker_sniffs/views/clientScreen.dart';
 
 class ClientsScreen extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -35,6 +37,29 @@ class _ClientsScreenState extends State<ClientsScreen> {
               controller: _identityController,
               icon: Icons.search,
               isDigit: true,
+              callback: () async {
+                Map<String, dynamic> data = await getClientByIdentity(
+                  "api/client/search-by-identity/",
+                  _identityController.text,
+                );
+
+                if (data['status']) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ClientScreen(
+                        clientData: data['data'],
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('No se encontró el cliente'),
+                    ),
+                  );
+                }
+              },
             ),
             const SizedBox(height: 10),
             const Tables3(),
