@@ -135,17 +135,17 @@ class _ManagerScreenState extends State<ManagerScreen> {
                   controller: _typeController,
                 ),
                 const SizedBox(height: 20),
-                // // Widget para cargar una imagen
-                // InputImage(
-                //   hintText: "Subir foto del trabajador",
-                //   labelText: "Foto del trabajador",
-                //   onImageSelected: (image) {
-                //     setState(() {
-                //       _selectedImage = image;
-                //     });
-                //   },
-                //   image: _selectedImage,
-                // ),
+                // Widget para cargar una imagen
+                InputImage(
+                  hintText: "Subir foto del trabajador",
+                  labelText: "Foto del trabajador",
+                  onImageSelected: (image) {
+                    setState(() {
+                      _selectedImage = image;
+                    });
+                  },
+                  image: _selectedImage,
+                ),
                 const SizedBox(height: 20),
                 // Botón para registrar el usuario
                 normalButton(

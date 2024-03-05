@@ -111,16 +111,16 @@ class _WorkerScreenState extends State<WorkerScreen> {
               icon: Icons.phone,
               isDigit: true,
             ),
-            // InputImage(
-            //   hintText: 'Ingrese nueva foto',
-            //   labelText: 'Foto del trabajador',
-            //   onImageSelected: (image) {
-            //     setState(() {
-            //       _selectedImage = image;
-            //     });
-            //   },
-            //   image: _selectedImage,
-            // ),
+            InputImage(
+              hintText: 'Ingrese nueva foto',
+              labelText: 'Foto del trabajador',
+              onImageSelected: (image) {
+                setState(() {
+                  _selectedImage = image;
+                });
+              },
+              image: _selectedImage,
+            ),
             if (_selectedImage == null)
               Image.network(widget.workerData['photo'],
                   width: 380, height: 380),
