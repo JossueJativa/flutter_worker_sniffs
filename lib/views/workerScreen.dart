@@ -65,6 +65,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
               controller: _controllerName,
               icon: Icons.person,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               name: 'Apellido',
@@ -74,6 +75,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
               controller: _controllerLastName,
               icon: Icons.person,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               name: 'Usuario',
@@ -83,6 +85,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
               controller: _controllerUsername,
               icon: Icons.person,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               name: 'Correo',
@@ -92,6 +95,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
               controller: _controllerEmail,
               icon: Icons.email,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               name: 'Cédula',
@@ -101,6 +105,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
               controller: _controllerIdentity,
               icon: Icons.credit_card,
               isDigit: true,
+              isDate: false,
             ),
             ShowInfo(
               name: 'Teléfono',
@@ -110,6 +115,7 @@ class _WorkerScreenState extends State<WorkerScreen> {
               controller: _controllerPhone,
               icon: Icons.phone,
               isDigit: true,
+              isDate: false,
             ),
             InputImage(
               hintText: 'Ingrese nueva foto',

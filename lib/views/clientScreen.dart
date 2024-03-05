@@ -67,6 +67,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.person,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _identityController,
@@ -76,6 +77,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.credit_card,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _phoneController,
@@ -85,6 +87,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.phone,
               isPassword: false,
               isDigit: true,
+              isDate: false,
             ),
             ShowInfo(
               controller: _priceController,
@@ -94,6 +97,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.attach_money,
               isPassword: false,
               isDigit: true,
+              isDate: false,
             ),
             ShowInfo(
               controller: _dateController,
@@ -102,7 +106,8 @@ class _ClientScreenState extends State<ClientScreen> {
               hintText: 'Ingrese nueva fecha de instalacion',
               icon: Icons.date_range,
               isPassword: false,
-              isDigit: true,
+              isDigit: false,
+              isDate: true,
             ),
             ShowInfo(
               controller: _partOfDayController,
@@ -112,6 +117,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.access_time,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _statusInstalationController,
@@ -121,6 +127,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.check_circle,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _isAcceptedController,
@@ -130,6 +137,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.check_circle,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _optionsToInstallController,
@@ -139,6 +147,7 @@ class _ClientScreenState extends State<ClientScreen> {
               icon: Icons.delivery_dining,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             const SizedBox(height: 10),
             const Text(

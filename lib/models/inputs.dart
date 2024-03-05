@@ -267,6 +267,7 @@ class ShowInfo extends StatefulWidget {
   final TextEditingController controller;
   final IconData icon;
   final bool isDigit;
+  final bool isDate;
 
   const ShowInfo({
     Key? key,
@@ -277,6 +278,7 @@ class ShowInfo extends StatefulWidget {
     required this.icon,
     required this.isDigit,
     required this.name,
+    required this.isDate,
   }) : super(key: key);
 
   @override
@@ -303,8 +305,11 @@ class _ShowInfoState extends State<ShowInfo> {
           ),
           const SizedBox(height: 10),
           TextField(
-            keyboardType:
-                widget.isDigit ? TextInputType.number : TextInputType.text,
+            keyboardType: widget.isDigit
+                ? TextInputType.number
+                : (widget.isDate
+                    ? TextInputType.datetime
+                    : TextInputType.text),
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               labelText: widget.labelText,
@@ -328,9 +333,16 @@ class _ShowInfoState extends State<ShowInfo> {
                         });
                       },
                     )
-                  : Icon(
-                      widget.icon,
-                      color: Colors.black,
+                  : InkWell(
+                      onTap: () {
+                        if (widget.isDate) {
+                          _selectDate(context);
+                        }
+                      },
+                      child: Icon(
+                        widget.icon,
+                        color: Colors.black,
+                      ),
                     ),
             ),
             controller: widget.controller,
@@ -343,5 +355,30 @@ class _ShowInfoState extends State<ShowInfo> {
         ],
       ),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? initialDate = DateTime.now();
+
+    if (widget.controller.text.isNotEmpty) {
+      try {
+        initialDate = DateTime.parse(widget.controller.text);
+      } catch (e) {
+        print("Error parsing date: $e");
+      }
+    }
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate!,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        // Formateamos la fecha seleccionada para mostrar solo la fecha sin la hora
+        widget.controller.text = "${picked.year}-${picked.month}-${picked.day}";
+      });
+    }
   }
 }

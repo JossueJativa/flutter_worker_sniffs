@@ -66,6 +66,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.person,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _identityController,
@@ -75,6 +76,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.credit_card,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _phoneController,
@@ -84,6 +86,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.phone,
               isPassword: false,
               isDigit: true,
+              isDate: false,
             ),
             ShowInfo(
               controller: _priceController,
@@ -93,6 +96,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.attach_money,
               isPassword: false,
               isDigit: true,
+              isDate: false,
             ),
             ShowInfo(
               controller: _dateController,
@@ -101,7 +105,8 @@ class _EditclientScreenState extends State<EditclientScreen> {
               hintText: 'Ingrese nueva fecha de instalacion',
               icon: Icons.date_range,
               isPassword: false,
-              isDigit: true,
+              isDigit: false,
+              isDate: true,
             ),
             ShowInfo(
               controller: _partOfDayController,
@@ -111,6 +116,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.access_time,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _statusInstalationController,
@@ -120,6 +126,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.check_circle,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _isAcceptedController,
@@ -129,6 +136,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.check_circle,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             ShowInfo(
               controller: _optionsToInstallController,
@@ -138,6 +146,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               icon: Icons.delivery_dining,
               isPassword: false,
               isDigit: false,
+              isDate: false,
             ),
             const SizedBox(height: 10),
             const Text(
