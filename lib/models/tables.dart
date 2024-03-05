@@ -25,10 +25,12 @@ class _TableWidgetState extends State<TableWidget> {
   @override
   void initState() {
     super.initState();
-    if (widget.currentData == 2) {
+    if (widget.currentData == 1) {
+      _tableInfoFuture = getTableClientsInfo(widget.apiUrl, context);
+    } else if (widget.currentData == 2) {
       _tableInfoFuture = getTableInfo(widget.apiUrl, context);
     } else {
-      _tableInfoFuture = getTableClientsInfo(widget.apiUrl, context);
+      _tableInfoFuture = getTableEditClientsInfo(widget.apiUrl, context);
     }
   }
 
@@ -159,6 +161,16 @@ class Tables3 extends StatelessWidget {
   }
 }
 
+class Tables4 extends StatelessWidget {
+  const Tables4({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const TableWidget(
+        apiUrl: 'api/client/', labelName: 'Lista de Managers', currentData: 3);
+  }
+}
+
 // Definir la clase de cada elemento de la tabla
 class TableInfo {
   final String username;
@@ -220,6 +232,39 @@ Future<List<TableInfo>> getTableClientsInfo(String url,
             Navigator.pushNamed(
               context!,
               '/client',
+              arguments: client,
+            );
+          },
+          child: const Text('Ver más'),
+        );
+        TableInfo info = TableInfo(
+          username: username,
+          id: id,
+          button: button,
+        );
+        tableInfoList.add(info);
+      }
+    }
+  }
+  return tableInfoList;
+}
+
+Future<List<TableInfo>> getTableEditClientsInfo(String url,
+    [BuildContext? context]) async {
+  List<TableInfo> tableInfoList = [];
+  final clientsData = await get_workers(url);
+  if (clientsData['status'] == true) {
+    List<dynamic> clients = clientsData['data'];
+    for (var client in clients) {
+      if (utf8.decode(client['is_accepted_by_manager'].runes.toList()) ==
+          'Esperando Aprobación') {
+        String username = client['username'];
+        String id = client['identity'];
+        ElevatedButton button = ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context!,
+              '/editclient',
               arguments: client,
             );
           },

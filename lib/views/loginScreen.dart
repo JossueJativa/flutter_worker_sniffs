@@ -54,7 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (response['status']) {
                     if(response['type'] == 'manager'){
                       Navigator.popAndPushNamed(context, '/manager', arguments: response['data']);
-                    }else{
+                    }else if (response['type'] == 'callcenter') {
+                      Navigator.popAndPushNamed(context, '/callcenter', arguments: response['data']);
+                    } else{
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('You are not a manager'),

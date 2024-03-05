@@ -1,22 +1,21 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_super_parameters, file_names
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
 
-class ClientScreen extends StatefulWidget {
+class EditclientScreen extends StatefulWidget {
   final Map<String, dynamic> clientData;
-  const ClientScreen({super.key, required this.clientData});
+  const EditclientScreen({ Key? key, required this.clientData }) : super(key: key);
 
   @override
-  _ClientScreenState createState() => _ClientScreenState();
+  _EditclientScreenState createState() => _EditclientScreenState();
 }
 
-class _ClientScreenState extends State<ClientScreen> {
+class _EditclientScreenState extends State<EditclientScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _identityController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -156,46 +155,18 @@ class _ClientScreenState extends State<ClientScreen> {
               height: 380,
             ),
             normalButton(
-              text: 'Aceptar Comprobante',
+              text: 'Editar pedido',
               onPressed: () async {
-                bool status = await changeStatusClient(
-                  'api/client/',
-                  widget.clientData['id'].toString(),
-                  'Aceptado',
-                );
-
-                if (status) {
-                  Navigator.pop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Error al aceptar comprobante'),
-                    ),
-                  );
-                }
+                
               },
               color: Colors.green,
               textColor: Colors.white,
             ),
             const SizedBox(height: 10),
             normalButton(
-              text: 'Rechazar Comprobante',
+              text: 'Eliminar pedido',
               onPressed: () async {
-                bool status = await changeStatusClient(
-                  'api/client/',
-                  widget.clientData['id'].toString(),
-                  'Rechazado',
-                );
-
-                if (status) {
-                  Navigator.pop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Error al rechazar comprobante'),
-                    ),
-                  );
-                }
+                
               },
               color: Colors.red,
               textColor: Colors.white,

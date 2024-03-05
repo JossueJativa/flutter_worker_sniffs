@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: use_super_parameters, library_private_types_in_public_api, file_names, must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
@@ -6,15 +6,15 @@ import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
 import 'package:flutter_worker_sniffs/models/tables.dart';
 
-class ClientsScreen extends StatefulWidget {
-  final Map<String, dynamic> data;
-  const ClientsScreen({super.key, required this.data});
+class CallcenterScreen extends StatefulWidget {
+  Map<String, dynamic> data;
+  CallcenterScreen({ Key? key, required this.data }) : super(key: key);
 
   @override
-  _ClientsScreenState createState() => _ClientsScreenState();
+  _CallcenterScreenState createState() => _CallcenterScreenState();
 }
 
-class _ClientsScreenState extends State<ClientsScreen> {
+class _CallcenterScreenState extends State<CallcenterScreen> {
   final TextEditingController _identityController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                 if (data['status']) {
                   Navigator.pushNamed(
                     context,
-                    '/client',
+                    '/editclient',
                     arguments: data['data'],
                   );
                 } else {
@@ -58,13 +58,13 @@ class _ClientsScreenState extends State<ClientsScreen> {
               },
             ),
             const SizedBox(height: 10),
-            const Tables3(),
+            const Tables4(),
           ],
         ),
       ),
-      bottomNavigationBar: BottonbarMenu(
+      bottomNavigationBar: BottonbarMenuCallcenter(
         data: widget.data,
-        currentPage: 2,
+        currentPage: 0,
       ),
     );
   }

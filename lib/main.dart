@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/views/callcenterScreen.dart';
 import 'package:flutter_worker_sniffs/views/clientScreen.dart';
 import 'package:flutter_worker_sniffs/views/clientsScreen.dart';
+import 'package:flutter_worker_sniffs/views/editclientScreen.dart';
 import 'package:flutter_worker_sniffs/views/loginScreen.dart';
 import 'package:flutter_worker_sniffs/views/managerScreen.dart';
 import 'package:flutter_worker_sniffs/views/workerScreen.dart';
@@ -21,24 +23,25 @@ class MainApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         '/manager': (context) => ManagerScreen(
-              data: ModalRoute.of(context)!.settings.arguments
-                  as Map<String, dynamic>,
+              data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
         '/workers': (context) => WorkersScreen(
-              data: ModalRoute.of(context)!.settings.arguments
-                  as Map<String, dynamic>,
+              data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
         '/worker': (context) => WorkerScreen(
-              workerData: ModalRoute.of(context)!.settings.arguments
-                  as Map<String, dynamic>,
+              workerData: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
         '/clients': (context) => ClientsScreen(
-              data: ModalRoute.of(context)!.settings.arguments
-                  as Map<String, dynamic>,
+              data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
         '/client': (context) => ClientScreen(
-              clientData: ModalRoute.of(context)!.settings.arguments
-                  as Map<String, dynamic>,
+              clientData: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
+            ),
+        '/callcenter': (context) => CallcenterScreen(
+              data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
+            ),
+        '/editclient': (context) => EditclientScreen(
+              clientData: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
       },
     );

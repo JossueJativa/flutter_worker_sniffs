@@ -76,3 +76,38 @@ class BottonbarMenu extends StatelessWidget {
     );
   }
 }
+
+class BottonbarMenuCallcenter extends StatelessWidget {
+  final Map<String, dynamic> data;
+  final int currentPage;
+
+  const BottonbarMenuCallcenter({Key? key, required this.data, required this.currentPage})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      backgroundColor: const Color(0xffb6955f),
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Ver Clientes',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.add),
+          label: 'Agregar Pedido',
+        ),
+      ],
+      currentIndex: currentPage,
+      selectedItemColor: Colors.white, // Color para el ícono de la página seleccionada
+      unselectedItemColor: Colors.black, // Color para el ícono de la página no seleccionada
+      onTap: (int index) {
+        if (index == 0) {
+          Navigator.popAndPushNamed(context, '/callcenter', arguments: data);
+        } else if (index == 1) {
+          // Navigator.popAndPushNamed(context, '/workers', arguments: data);
+        }
+      },
+    );
+  }
+}
