@@ -12,3 +12,12 @@ Future<void> updateClient(String url, String id, Map<String, dynamic> data,
     Navigator.pop(context);
   }
 }
+
+Future<void> deleteClient(String url, String id, BuildContext context) async {
+  final url0 = Uri.parse('$_allurl/$url$id/');
+  final response = await http.delete(url0);
+
+  if (response.statusCode == 204) {
+    Navigator.pop(context);
+  }
+}

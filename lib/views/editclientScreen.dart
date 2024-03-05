@@ -186,7 +186,8 @@ class _EditclientScreenState extends State<EditclientScreen> {
             normalButton(
               text: 'Eliminar pedido',
               onPressed: () async {
-                
+                final int id = widget.clientData['id'];
+                deleteClient('api/client/', id.toString(), context);
               },
               color: Colors.red,
               textColor: Colors.white,
