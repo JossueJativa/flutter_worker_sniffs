@@ -37,7 +37,6 @@ Future<Map<String, dynamic>> login_api(String? email, String? password,
     case 200:
       final userResponse = jsonDecode(response.body);
       final id = userResponse['id'];
-      print(id);
       var urlsearch = Uri.parse('$_allurl/api/manager/search-by-user/$id/');
 
       final responseSearch = await http.get(urlsearch);

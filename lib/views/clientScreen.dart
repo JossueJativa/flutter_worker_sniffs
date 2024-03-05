@@ -68,6 +68,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _identityController,
@@ -78,6 +79,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _phoneController,
@@ -88,6 +90,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: true,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _priceController,
@@ -109,6 +112,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: true,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _partOfDayController,
@@ -119,6 +123,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _statusInstalationController,
@@ -151,6 +156,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             const SizedBox(height: 10),
             const Text(

@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/controller/async_url_callcenter.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
@@ -110,7 +111,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               isDate: true,
             ),
             DropDownMenuCallcenter(
-              controller: _optionsToInstallController,
+              controller: _partOfDayController,
               text: 'Opciones para instalar',
               value1: 'mañana',
               value2: 'tarde',
@@ -163,7 +164,20 @@ class _EditclientScreenState extends State<EditclientScreen> {
             normalButton(
               text: 'Editar pedido',
               onPressed: () async {
-                
+                final int id = widget.clientData['id'];
+                Map <String, dynamic> data = {
+                  'username': _usernameController.text,
+                  'identity': _identityController.text,
+                  'phone': _phoneController.text,
+                  'total_price': _priceController.text,
+                  'date_instalation': _dateController.text,
+                  'part_of_day': _partOfDayController.text,
+                  'status_instalation': _statusInstalationController.text,
+                  'is_accepted_by_manager': _isAcceptedController.text,
+                  'options_to_give_instalation': _optionsToInstallController.text,
+                };
+
+                await updateClient('api/client/', id.toString(), data, context);
               },
               color: Colors.green,
               textColor: Colors.white,
