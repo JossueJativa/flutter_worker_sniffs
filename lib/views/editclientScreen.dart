@@ -75,7 +75,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               hintText: 'Ingrese nueva cedula/RUC/pasaporte',
               icon: Icons.credit_card,
               isPassword: false,
-              isDigit: false,
+              isDigit: true,
               isDate: false,
             ),
             ShowInfo(
@@ -97,6 +97,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               isPassword: false,
               isDigit: true,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _dateController,
@@ -108,15 +109,12 @@ class _EditclientScreenState extends State<EditclientScreen> {
               isDigit: false,
               isDate: true,
             ),
-            ShowInfo(
-              controller: _partOfDayController,
-              name: 'Turno',
-              labelText: widget.clientData['part_of_day'],
-              hintText: 'Ingrese nuevo turno',
-              icon: Icons.access_time,
-              isPassword: false,
-              isDigit: false,
-              isDate: false,
+            DropDownMenuCallcenter(
+              controller: _optionsToInstallController,
+              text: 'Opciones para instalar',
+              value1: 'mañana',
+              value2: 'tarde',
+              valueSelected: utf8.decode(widget.clientData['part_of_day'].runes.toList()),
             ),
             ShowInfo(
               controller: _statusInstalationController,
@@ -127,6 +125,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _isAcceptedController,
@@ -137,16 +136,14 @@ class _EditclientScreenState extends State<EditclientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
-            ShowInfo(
+            DropDownMenuCallcenter(
               controller: _optionsToInstallController,
-              name: 'Opciones de instalacion',
-              labelText: widget.clientData['options_to_give_instalation'],
-              hintText: 'Ingrese nuevas opciones de instalacion',
-              icon: Icons.delivery_dining,
-              isPassword: false,
-              isDigit: false,
-              isDate: false,
+              text: 'Opciones para instalar',
+              value1: 'Recoger',
+              value2: 'Delivery',
+              valueSelected: widget.clientData['options_to_give_instalation'],
             ),
             const SizedBox(height: 10),
             const Text(

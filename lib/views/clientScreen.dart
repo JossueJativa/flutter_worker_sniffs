@@ -98,6 +98,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: true,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _dateController,
@@ -128,6 +129,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _isAcceptedController,
@@ -138,6 +140,7 @@ class _ClientScreenState extends State<ClientScreen> {
               isPassword: false,
               isDigit: false,
               isDate: false,
+              readOnly: true,
             ),
             ShowInfo(
               controller: _optionsToInstallController,

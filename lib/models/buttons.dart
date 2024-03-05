@@ -252,3 +252,118 @@ class _DropDownMenuManagerState extends State<DropDownMenuManager> {
     );
   }
 }
+
+class DropDownMenuCallcenter extends StatefulWidget {
+  String text;
+  String value1;
+  String value2;
+  String valueSelected;
+  final TextEditingController controller;
+  DropDownMenuCallcenter(
+      {super.key, required this.text, required this.controller, required this.value1, required this.value2, required this.valueSelected});
+
+  @override
+  _DropDownMenuCallcenterState createState() => _DropDownMenuCallcenterState();
+}
+
+class _DropDownMenuCallcenterState extends State<DropDownMenuCallcenter> {
+  String valueChoosen = 'Seleccione';
+
+  @override
+  void initState() {
+    super.initState();
+    valueChoosen = widget.valueSelected; // Establecer el valor seleccionado inicialmente
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              widget.text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        InkWell(
+          onTap: () {
+            FocusScope.of(context).requestFocus(
+                FocusNode()); // Para cerrar el teclado si está abierto
+            _showDropDownMenu(context, widget.value1, widget.value2);
+          },
+          child: Container(
+            height: 70,
+            width: 380,
+            alignment: Alignment.centerRight,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    valueChoosen,
+                    style: const TextStyle(fontSize: 20, color: Colors.black),
+                  ),
+                ),
+                const Icon(Icons.arrow_drop_down, color: Colors.black),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showDropDownMenu(BuildContext context, String value1, String value2) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildDropDownMenuItem('Seleccione'),
+            _buildDropDownMenuItem(value1),
+            _buildDropDownMenuItem(value2),
+          ],
+        );
+      },
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          valueChoosen = value;
+          widget.controller.text = value;
+        });
+      }
+    });
+  }
+
+  Widget _buildDropDownMenuItem(String text) {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context, text);
+      },
+      child: Container(
+        width: 360,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(15),
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}

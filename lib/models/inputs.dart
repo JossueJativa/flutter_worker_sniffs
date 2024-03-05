@@ -268,6 +268,7 @@ class ShowInfo extends StatefulWidget {
   final IconData icon;
   final bool isDigit;
   final bool isDate;
+  final bool readOnly; // Nuevo campo para indicar si el campo de texto es de solo lectura
 
   const ShowInfo({
     Key? key,
@@ -279,6 +280,7 @@ class ShowInfo extends StatefulWidget {
     required this.isDigit,
     required this.name,
     required this.isDate,
+    this.readOnly = false, // Valor predeterminado: el campo no es de solo lectura
   }) : super(key: key);
 
   @override
@@ -305,6 +307,7 @@ class _ShowInfoState extends State<ShowInfo> {
           ),
           const SizedBox(height: 10),
           TextField(
+            readOnly: widget.readOnly, // Establecer el modo de solo lectura
             keyboardType: widget.isDigit
                 ? TextInputType.number
                 : (widget.isDate
@@ -335,7 +338,7 @@ class _ShowInfoState extends State<ShowInfo> {
                     )
                   : InkWell(
                       onTap: () {
-                        if (widget.isDate) {
+                        if (widget.isDate && !widget.readOnly) {
                           _selectDate(context);
                         }
                       },
