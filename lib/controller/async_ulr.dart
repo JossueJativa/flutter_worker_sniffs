@@ -102,6 +102,7 @@ Future<Map<String, dynamic>> create_user_api({
     'password': encryptPassword(password),
     'identity': id,
     'username': '${firstName}_$lastName',
+    'is_active': json.encode(true),
   };
   final response = await http.post(url0, body: data);
 

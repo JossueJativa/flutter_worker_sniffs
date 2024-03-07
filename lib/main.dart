@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/views/callcenterScreen.dart';
 import 'package:flutter_worker_sniffs/views/clientScreen.dart';
 import 'package:flutter_worker_sniffs/views/clientsScreen.dart';
+import 'package:flutter_worker_sniffs/views/createClient.dart';
 import 'package:flutter_worker_sniffs/views/editclientScreen.dart';
 import 'package:flutter_worker_sniffs/views/loginScreen.dart';
 import 'package:flutter_worker_sniffs/views/managerScreen.dart';
@@ -42,6 +43,9 @@ class MainApp extends StatelessWidget {
             ),
         '/editclient': (context) => EditclientScreen(
               clientData: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
+            ),
+        '/createclient': (context) => CreateClient(
+              data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
       },
     );

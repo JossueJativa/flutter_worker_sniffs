@@ -1,9 +1,11 @@
-// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, must_be_immutable
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
+import 'package:flutter_worker_sniffs/controller/async_url_callcenter.dart';
 
 class TableWidget extends StatefulWidget {
   final String apiUrl;
@@ -129,6 +131,161 @@ class _TableWidgetState extends State<TableWidget> {
   }
 }
 
+class TablesCheckbox extends StatefulWidget {
+  final String apiUrl;
+  final String labelName;
+  final List<TableInfoCheckbox> list;
+
+  const TablesCheckbox({
+    super.key,
+    required this.apiUrl,
+    required this.labelName,
+    required this.list,
+  });
+
+  @override
+  _TablesCheckboxState createState() => _TablesCheckboxState();
+}
+
+class _TablesCheckboxState extends State<TablesCheckbox> {
+  late Future<List<TableInfoCheckbox>> _tableInfoFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _tableInfoFuture = getProducts(widget.apiUrl, context);
+  }
+
+  void resetSelection() {
+    setState(() {
+      for (var item in widget.list) {
+        item.isChecked = false;
+      }
+      widget.list.clear();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<TableInfoCheckbox>>(
+      future: _tableInfoFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.labelName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 300,
+                width: 800,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    showCheckboxColumn: false,
+                    columns: const [
+                      DataColumn(
+                        label: Text('Producto', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
+                      ),
+                      DataColumn(
+                        label: Text('Precio', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
+                      ),
+                      DataColumn(
+                        label: Text('Agregar', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
+                      ),
+                    ],
+                    rows: snapshot.data!
+                        .map(
+                          (info) => DataRow(
+                            cells: [
+                              DataCell(
+                                Text(
+                                  info.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Text(
+                                  info.price,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: info.isChecked
+                                      ? const Icon(Icons.check, color: Colors.green)
+                                      : ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              info.isChecked = !info.isChecked;
+                                              if (info.isChecked) {
+                                                widget.list.add(info);
+                                              }
+                                            });
+                                          },
+                                          child: const Text('Agregar'),
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: resetSelection,
+                  icon: const Icon(Icons.refresh),
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+}
+
+class TableCheck extends StatelessWidget {
+  final List<TableInfoCheckbox> list;
+
+  const TableCheck({super.key, required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return TablesCheckbox(
+      apiUrl: 'api/product/',
+      labelName: 'Lista de productos',
+      list: list,
+    );
+  }
+}
+
 class Tables1 extends StatelessWidget {
   const Tables1({super.key});
 
@@ -184,8 +341,7 @@ class TableInfo {
   });
 }
 
-// Definir los valores de la lista
-
+// Definir los valores de la lista de la tabla
 Future<List<TableInfo>> getTableInfo(String url,
     [BuildContext? context]) async {
   List<TableInfo> tableInfoList = [];
@@ -214,6 +370,20 @@ Future<List<TableInfo>> getTableInfo(String url,
     }
   }
   return tableInfoList;
+}
+
+class TableInfoCheckbox {
+  final int id;
+  final String name;
+  final String price;
+  bool isChecked; // Nuevo estado para el checkbox
+
+  TableInfoCheckbox({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.isChecked, // Inicialmente no está seleccionado
+  });
 }
 
 Future<List<TableInfo>> getTableClientsInfo(String url,
@@ -277,6 +447,27 @@ Future<List<TableInfo>> getTableEditClientsInfo(String url,
         );
         tableInfoList.add(info);
       }
+    }
+  }
+  return tableInfoList;
+}
+
+Future<List<TableInfoCheckbox>> getProducts(String url, [BuildContext? context]) async {
+  List<TableInfoCheckbox> tableInfoList = [];
+  final productsData = await get_products(url);
+  if (productsData['status'] == true) {
+    List<dynamic> products = jsonDecode(productsData['data']);
+    for (var product in products) {
+      int id = product['id'];
+      String name = product['name'];
+      String price = product['price'].toString();
+      TableInfoCheckbox info = TableInfoCheckbox(
+        id: id,
+        name: name,
+        price: price,
+        isChecked: false, // Inicialmente no está seleccionado
+      );
+      tableInfoList.add(info);
     }
   }
   return tableInfoList;

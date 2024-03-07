@@ -1,4 +1,4 @@
 # flutter_worker_sniffs
 
 A new Flutter project.
-- Problemas en la parte de implementacion de image_picker
+- Problemas al crear un usuario desde el celular que Django no ingresa con el login correctamente
