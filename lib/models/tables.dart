@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/controller/async_url_callcenter.dart';
 
@@ -60,66 +59,69 @@ class _TableWidgetState extends State<TableWidget> {
                 ),
               ),
               SizedBox(
-                height: 300,
+                height: 400,
                 width: 800,
                 child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    showCheckboxColumn: false,
-                    columns: const [
-                      DataColumn(
-                          label: Text('Usuario',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white))),
-                      DataColumn(
-                          label: Text('Cédula',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white))),
-                      DataColumn(
-                          label: Text('Ver más',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white))),
-                    ],
-                    rows: snapshot.data!
-                        .map(
-                          (info) => DataRow(
-                            cells: [
-                              DataCell(
-                                Text(
-                                  info.username,
-                                  style: const TextStyle(
+                  scrollDirection: Axis.vertical,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      showCheckboxColumn: false,
+                      columns: const [
+                        DataColumn(
+                            label: Text('Usuario',
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              DataCell(
-                                Text(
-                                  info.id,
-                                  style: const TextStyle(
+                                    color: Colors.white))),
+                        DataColumn(
+                            label: Text('Cédula',
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
-                                    color: Colors.white,
+                                    color: Colors.white))),
+                        DataColumn(
+                            label: Text('Ver más',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white))),
+                      ],
+                      rows: snapshot.data!
+                          .map(
+                            (info) => DataRow(
+                              cells: [
+                                DataCell(
+                                  Text(
+                                    info.username,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              DataCell(
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: info.button,
+                                DataCell(
+                                  Text(
+                                    info.id,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                        .toList(),
+                                DataCell(
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: info.button,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                 ),
               ),
@@ -189,7 +191,7 @@ class _TablesCheckboxState extends State<TablesCheckbox> {
                 ),
               ),
               SizedBox(
-                height: 300,
+                height: 630,
                 width: 800,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,

@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, use_super_parameters, file_names, use_build_context_synchronously
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -182,7 +183,7 @@ class _CreateClientState extends State<CreateClient> {
                     String formattedDate = parts.join('-');
                     _dateController.text = formattedDate.substring(0, 10);
 
-                    Map<String, dynamic> data = {
+                    Map<String, dynamic> dataJson = {
                       "username": _nameController.text,
                       "phone": _phoneController.text,
                       "identity": _idController.text,
@@ -192,11 +193,28 @@ class _CreateClientState extends State<CreateClient> {
                       "total_price": _totalpriceController.text,
                       "products_bought": list,
                     };
-                    bool isCreated = await createClient('api/client/', data, photo!);
+                    bool isCreated = await createClient(
+                      'api/client/', 
+                      dataJson,
+                      photo!,
+                    );
                     if (isCreated) {
-                      Navigator.popAndPushNamed(
-                        context,
-                        '/callcenter',
+                      // Reinicio de los campos
+                      _nameController.clear();
+                      _phoneController.clear();
+                      _idController.clear();
+                      _dateController.clear();
+                      _partOfDayController.clear();
+                      _optionsToInstallController.clear();
+                      _totalpriceController.clear();
+                      _list.clear();
+                      _selectedImage = null;
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Cliente creado con éxito'),
+                          backgroundColor: Colors.green,
+                        ),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
