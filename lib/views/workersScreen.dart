@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
-import 'package:flutter_worker_sniffs/models/tables.dart';
+import 'package:flutter_worker_sniffs/models/tablesClass.dart';
 import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 
 class WorkersScreen extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:flutter_worker_sniffs/controller/async_url_callcenter.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
-import 'package:flutter_worker_sniffs/models/tables.dart';
+import 'package:flutter_worker_sniffs/models/tablesClass.dart';
 
 class CreateClient extends StatefulWidget {
   final Map<String, dynamic> data;
