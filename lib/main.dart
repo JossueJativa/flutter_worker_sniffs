@@ -6,6 +6,7 @@ import 'package:flutter_worker_sniffs/views/createClient.dart';
 import 'package:flutter_worker_sniffs/views/editclientScreen.dart';
 import 'package:flutter_worker_sniffs/views/loginScreen.dart';
 import 'package:flutter_worker_sniffs/views/managerScreen.dart';
+import 'package:flutter_worker_sniffs/views/tecnicScreen.dart';
 import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 import 'package:flutter_worker_sniffs/views/workersScreen.dart';
 
@@ -45,6 +46,9 @@ class MainApp extends StatelessWidget {
               clientData: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
         '/createclient': (context) => CreateClient(
+              data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
+            ),
+        '/tecnic': (context) => TecnicScreen(
               data: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
             ),
       },

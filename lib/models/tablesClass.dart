@@ -36,9 +36,10 @@ class Tables1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TableWidget(
-        apiUrl: 'api/callcenter/',
-        labelName: 'Lista de Callcenter',
-        currentData: 2);
+      apiUrl: 'api/callcenter/',
+      labelName: 'Lista de Callcenter',
+      currentData: 2
+    );
   }
 }
 
@@ -48,7 +49,10 @@ class Tables2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TableWidget(
-        apiUrl: 'api/tecnic/', labelName: 'Lista de Técnicos', currentData: 2);
+      apiUrl: 'api/tecnic/', 
+      labelName: 'Lista de Técnicos', 
+      currentData: 2
+    );
   }
 }
 
@@ -58,7 +62,10 @@ class Tables3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TableWidget(
-        apiUrl: 'api/client/', labelName: 'Lista de Clientes', currentData: 1);
+      apiUrl: 'api/client/', 
+      labelName: 'Lista de Clientes', 
+      currentData: 1
+    );
   }
 }
 
@@ -68,7 +75,10 @@ class Tables4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TableWidget(
-        apiUrl: 'api/client/', labelName: 'Lista de Managers', currentData: 3);
+      apiUrl: 'api/client/', 
+      labelName: 'Lista de Managers', 
+      currentData: 3
+    );
   }
 }
 

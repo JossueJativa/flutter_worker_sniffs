@@ -51,7 +51,5 @@ Future<bool> createClient(String url, Map<String, dynamic> dataJson, File photo_
   if (response.statusCode == 201) {
     return true;
   }
-  // Ver el error
-  print(await response.stream.bytesToString());
   return false;
 }

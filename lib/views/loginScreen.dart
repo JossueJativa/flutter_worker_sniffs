@@ -56,6 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.popAndPushNamed(context, '/manager', arguments: response['data']);
                     }else if (response['type'] == 'callcenter') {
                       Navigator.popAndPushNamed(context, '/callcenter', arguments: response['data']);
+                    } else if (response['type'] == 'tecnic') {
+                      Navigator.popAndPushNamed(context, '/tecnic', arguments: response['data']);
                     } else{
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
