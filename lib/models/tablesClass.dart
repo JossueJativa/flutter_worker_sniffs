@@ -30,6 +30,14 @@ class TableInfo {
   });
 }
 
+class TableProducts {
+  final String name;
+
+  TableProducts({
+    required this.name,
+  });
+}
+
 class Tables1 extends StatelessWidget {
   const Tables1({super.key});
 
@@ -107,6 +115,19 @@ class TableCheck extends StatelessWidget {
       apiUrl: 'api/product/',
       labelName: 'Lista de productos',
       list: list,
+    );
+  }
+}
+
+class TableProductsClient extends StatelessWidget {
+  final int id;
+  const TableProductsClient({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context) {
+    return TableProduct(
+      apiUrl: 'api/client/$id/',
+      labelName: 'Lista de productos a instalar',
     );
   }
 }

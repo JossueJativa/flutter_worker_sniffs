@@ -107,6 +107,7 @@ Future<List<TableInfoCheckbox>> getProducts(String url, [BuildContext? context])
   final productsData = await get_products(url);
   if (productsData['status'] == true) {
     List<dynamic> products = jsonDecode(productsData['data']);
+    print(products);
     for (var product in products) {
       int id = product['id'];
       String name = product['name'];

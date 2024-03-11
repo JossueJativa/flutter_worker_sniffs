@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
+import 'package:flutter_worker_sniffs/models/tablesClass.dart';
 
 class TecnicClient extends StatefulWidget {
   final Map<String, dynamic> clientData;
@@ -92,17 +93,6 @@ class _TecnicClientState extends State<TecnicClient> {
               readOnly: true,
             ),
             ShowInfo(
-              controller: _priceController,
-              name: 'Precio a pagar',
-              labelText: widget.clientData['total_price'].toString(),
-              hintText: 'Ingrese nuevo precio a pagar',
-              icon: Icons.attach_money,
-              isPassword: false,
-              isDigit: true,
-              isDate: false,
-              readOnly: true,
-            ),
-            ShowInfo(
               controller: _dateController,
               name: 'Fecha de instalacion',
               labelText: widget.clientData['date_instalation'],
@@ -136,17 +126,6 @@ class _TecnicClientState extends State<TecnicClient> {
               readOnly: true,
             ),
             ShowInfo(
-              controller: _isAcceptedController,
-              name: 'Aceptado por el manager',
-              labelText: widget.clientData['is_accepted_by_manager'].toString(),
-              hintText: 'Ingrese si fue aceptado por el manager',
-              icon: Icons.check_circle,
-              isPassword: false,
-              isDigit: false,
-              isDate: false,
-              readOnly: true,
-            ),
-            ShowInfo(
               controller: _optionsToInstallController,
               name: 'Opciones de instalacion',
               labelText: widget.clientData['options_to_give_instalation'],
@@ -158,20 +137,8 @@ class _TecnicClientState extends State<TecnicClient> {
               readOnly: true,
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Foto del recibo de pago',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            TableProductsClient(id: widget.clientData['id']),
             const SizedBox(height: 10),
-            Image.network(
-              widget.clientData['photo_reciept'],
-              width: 380,
-              height: 380,
-            ),
             normalButton(
               text: 'Cambiar estatus a Retrasado',
               onPressed: () async {

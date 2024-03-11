@@ -275,3 +275,92 @@ class _TablesCheckboxState extends State<TablesCheckbox> {
     );
   }
 }
+
+class TableProduct extends StatefulWidget {
+  final String apiUrl;
+  final String labelName;
+
+  const TableProduct({super.key, required this.apiUrl, required this.labelName,});
+
+  @override
+  _TableProductState createState() => _TableProductState();
+}
+
+class _TableProductState extends State<TableProduct> {
+  late Future<List<TableProducts>> _tableInfoFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _tableInfoFuture = getProductsClient(widget.apiUrl, context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<TableProducts>>(
+      future: _tableInfoFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.labelName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 630,
+                width: 800,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      showCheckboxColumn: false,
+                      columns: const [
+                        DataColumn(
+                            label: Text('Nombre de articulo',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white))),
+                      ],
+                      rows: snapshot.data!
+                          .map(
+                            (info) => DataRow(
+                              cells: [
+                                DataCell(
+                                  Text(
+                                    info.name,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+}

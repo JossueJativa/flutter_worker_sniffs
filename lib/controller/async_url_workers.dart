@@ -85,3 +85,26 @@ Future<List<TableInfo>> getClientsTecnic(String url, BuildContext context) async
   }
   return clientsList;
 }
+
+Future<List<TableProducts>> getProductsClient(String url, BuildContext context) async {
+  List<TableProducts> productList = [];
+  // Obtener base de datos de los clientes del tecnico
+  final url0 = Uri.parse('$_allurl/$url');
+  final response = await http.get(url0);
+
+  if (response.statusCode == 200) {
+    final clientProduct = jsonDecode(response.body);
+    final products = clientProduct['products_bought'];
+    for (var i in products) {
+      final urlProduct = Uri.parse('$_allurl/api/product/$i/');
+      final responseProduct = await http.get(urlProduct);
+      if (responseProduct.statusCode == 200) {
+        final productrsp = jsonDecode(responseProduct.body);
+        productList.add(TableProducts(
+          name: productrsp['name'],
+        ));
+      }
+    }
+  }
+  return productList;
+}
