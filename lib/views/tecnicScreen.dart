@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
+import 'package:flutter_worker_sniffs/models/tablesClass.dart';
 
 class TecnicScreen extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -24,11 +25,11 @@ class _TecnicScreenState extends State<TecnicScreen> {
       body: Container(
         color: const Color(0xff040d26),
         padding: const EdgeInsets.all(10),
-        child: const Center(
+        child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text(
+                const Text(
                   "Lista de clientes",
                   style: TextStyle(
                     color: Colors.white,
@@ -39,6 +40,8 @@ class _TecnicScreenState extends State<TecnicScreen> {
                     decorationThickness: 2,
                   ),
                 ),
+                const SizedBox(height: 10),
+                Tables5(id: widget.data['id'])
               ],
             ),
           ),

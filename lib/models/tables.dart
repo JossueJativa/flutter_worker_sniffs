@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/controller/async_url_workers.dart';
 import 'package:flutter_worker_sniffs/controller/tablesInfo_url.dart';
 import 'package:flutter_worker_sniffs/models/tablesClass.dart';
 
@@ -8,11 +9,13 @@ class TableWidget extends StatefulWidget {
   final String apiUrl;
   final String labelName;
   final int currentData;
+
   const TableWidget(
       {super.key,
       required this.apiUrl,
       required this.labelName,
-      required this.currentData});
+      required this.currentData
+      });
 
   @override
   _TableWidgetState createState() => _TableWidgetState();
@@ -28,8 +31,10 @@ class _TableWidgetState extends State<TableWidget> {
       _tableInfoFuture = getTableClientsInfo(widget.apiUrl, context);
     } else if (widget.currentData == 2) {
       _tableInfoFuture = getTableInfo(widget.apiUrl, context);
-    } else {
+    } else if (widget.currentData == 3) {
       _tableInfoFuture = getTableEditClientsInfo(widget.apiUrl, context);
+    } else {
+      _tableInfoFuture = getClientsTecnic(widget.apiUrl, context);
     }
   }
 
