@@ -1,8 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/controller/async_url_workers.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
@@ -142,7 +143,9 @@ class _TecnicClientState extends State<TecnicClient> {
             normalButton(
               text: 'Cambiar estatus a Retrasado',
               onPressed: () async {
-                
+                await changeStatusProduct(
+                  'api/client/', 'Retrasado', widget.clientData['id'].toString(), context, widget.clientData
+                );
               },
               color: Colors.red,
               textColor: Colors.white,
@@ -151,7 +154,9 @@ class _TecnicClientState extends State<TecnicClient> {
             normalButton(
               text: 'Cambiar estatus a Viajando',
               onPressed: () async {
-                
+                await changeStatusProduct(
+                  'api/client/', 'Viajando', widget.clientData['id'].toString(), context, widget.clientData
+                );
               },
               color: Colors.yellow,
               textColor: Colors.white,
@@ -160,7 +165,9 @@ class _TecnicClientState extends State<TecnicClient> {
             normalButton(
               text: 'Cambiar estatus a Terminado',
               onPressed: () async {
-                
+                await changeStatusProduct(
+                  'api/client/', 'Terminado', widget.clientData['id'].toString(), context, widget.clientData
+                );
               },
               color: Colors.green,
               textColor: Colors.white,

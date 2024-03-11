@@ -1,4 +1,6 @@
 // Definir los valores de la lista de la tabla
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -107,7 +109,6 @@ Future<List<TableInfoCheckbox>> getProducts(String url, [BuildContext? context])
   final productsData = await get_products(url);
   if (productsData['status'] == true) {
     List<dynamic> products = jsonDecode(productsData['data']);
-    print(products);
     for (var product in products) {
       int id = product['id'];
       String name = product['name'];

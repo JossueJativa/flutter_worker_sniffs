@@ -1,4 +1,4 @@
 # flutter_worker_sniffs
 
 A new Flutter project.
-- Problemas al ingresar un nuevo cliente para crear pedidos
+- Restriccion: Manager y callcenter no podran actualizar su barra de tareas, a menos que se hagan logout

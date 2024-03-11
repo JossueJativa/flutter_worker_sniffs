@@ -111,3 +111,20 @@ class BottonbarMenuCallcenter extends StatelessWidget {
     );
   }
 }
+
+class UpdateData extends StatelessWidget {
+  final Map<String, dynamic> data;
+  final String page;
+const UpdateData({ Key? key, required this.data, required this.page }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.popAndPushNamed(context, page, arguments: data);
+      },
+      backgroundColor: const Color(0xff10205c),
+      child: const Icon(Icons.refresh, color: Colors.white),
+    );
+  }
+}

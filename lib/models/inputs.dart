@@ -367,13 +367,13 @@ class _ShowInfoState extends State<ShowInfo> {
       try {
         initialDate = DateTime.parse(widget.controller.text);
       } catch (e) {
-        print("Error parsing date: $e");
+        initialDate = DateTime.now();
       }
     }
 
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: initialDate!,
+      initialDate: initialDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2101),
     );

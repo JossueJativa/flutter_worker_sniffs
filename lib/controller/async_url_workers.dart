@@ -108,3 +108,13 @@ Future<List<TableProducts>> getProductsClient(String url, BuildContext context) 
   }
   return productList;
 }
+
+Future<void> changeStatusProduct(String url, String status, String id, BuildContext context, Map<String, dynamic> data) async {
+  final url0 = Uri.parse('$_allurl/$url$id/');
+  final response = await http.patch(url0, body: {'status_instalation': status});
+
+  if (response.statusCode == 200) {
+    await Future.delayed(const Duration(seconds: 1));
+    Navigator.popAndPushNamed(context, '/tecnicclient', arguments: data);
+  }
+}

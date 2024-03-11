@@ -47,6 +47,7 @@ class _TecnicScreenState extends State<TecnicScreen> {
           ),
         ),
       ),
+      floatingActionButton: UpdateData(data: widget.data, page: '/tecnic',),
     );
   }
 }
