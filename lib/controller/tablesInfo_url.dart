@@ -115,7 +115,7 @@ Future<List<TableInfoCheckbox>> getProducts(String url, [BuildContext? context])
         id: id,
         name: name,
         price: price,
-        isChecked: false, // Inicialmente no está seleccionado
+        isChecked: false,
       );
       tableInfoList.add(info);
     }

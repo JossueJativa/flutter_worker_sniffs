@@ -75,7 +75,7 @@ Future<List<TableInfo>> getClientsTecnic(String url, BuildContext context) async
           id: client['identity'].toString(),
           button: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/client', arguments: client);
+              Navigator.pushNamed(context, '/tecnicclient', arguments: client);
             },
             child: const Text('Ver'),
           ),
