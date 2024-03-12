@@ -45,5 +45,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to your photos in order to load the into the app</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to your camera in order to take photos</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app needs access to local network to receive notifications</string>
+	<key>NSRemoteNotificationUsageDescription</key>
+	<string>This app needs to receive push notifications</string>
 </dict>
 </plist>

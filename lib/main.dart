@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_worker_sniffs/services/notification_services.dart';
+import 'package:flutter_worker_sniffs/services/request_permissions.dart';
 import 'package:flutter_worker_sniffs/views/callcenterScreen.dart';
 import 'package:flutter_worker_sniffs/views/clientScreen.dart';
 import 'package:flutter_worker_sniffs/views/clientsScreen.dart';
@@ -11,7 +13,11 @@ import 'package:flutter_worker_sniffs/views/tecnicScreen.dart';
 import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 import 'package:flutter_worker_sniffs/views/workersScreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Se asegura que inicie todo antes de ejecutar la app
+  await showNotification(); // Muestra notificaciones
+  await requestPermissions(); // Solicita permisos
+  
   runApp(const MainApp());
 }
 

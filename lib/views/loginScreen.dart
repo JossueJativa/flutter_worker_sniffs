@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
+import 'package:flutter_worker_sniffs/services/notification_services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ super.key });
@@ -54,10 +55,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (response['status']) {
                     if(response['type'] == 'manager'){
                       Navigator.popAndPushNamed(context, '/manager', arguments: response['data']);
+                      showNotificationAsync(
+                        'Bienvenido ${response['data']['username']}',
+                        'Iniciaste sesión como manager',
+                        'manager'
+                      );
                     }else if (response['type'] == 'callcenter') {
                       Navigator.popAndPushNamed(context, '/callcenter', arguments: response['data']);
+                      showNotificationAsync(
+                        'Bienvenido ${response['data']['username']}',
+                        'Iniciaste sesión como callcenter',
+                        'callcenter'
+                      );
                     } else if (response['type'] == 'tecnic') {
                       Navigator.popAndPushNamed(context, '/tecnic', arguments: response['data']);
+                      showNotificationAsync(
+                        'Bienvenido ${response['data']['username']}',
+                        'Iniciaste sesión como técnico',
+                        'tecnic'
+                      );
                     } else{
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
