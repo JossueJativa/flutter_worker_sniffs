@@ -22,6 +22,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform, // Inicializa Firebase
   );
+  await PushNotificationProvider().initnotification(); // Inicializa notificaciones
   
   runApp(const MainApp());
 }

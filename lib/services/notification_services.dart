@@ -17,7 +17,7 @@ Future<void> showNotification() async {
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 }
 
-Future<void> showNotificationAsync() async {
+Future<void> showNotificationAsync(String title, String message) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -33,51 +33,51 @@ Future<void> showNotificationAsync() async {
     iOS: iOSPlatformChannelSpecifics,
   );
 
-  if (prefs.getString('type') == 'manager'){
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      'Querido Manager',
-      'Hay nuevas solicitudes de clientes por revisar',
-      platformChannelSpecifics,
-    );
-  } else if (prefs.getString('type') == 'tecnic'){
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      'Querido Cliente',
-      'Tu solicitud ha sido aceptada',
-      platformChannelSpecifics,
-    );
-  }
+  await flutterLocalNotificationsPlugin.show(
+    0,
+    title,
+    message,
+    platformChannelSpecifics,
+  );
 }
 
 // Firebase Cloud Messaging
 class PushNotificationProvider {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  initnotification() {
-    _firebaseMessaging.requestPermission();
+  Future<void> initnotification() async {
+    await _firebaseMessaging.requestPermission();
 
-    _firebaseMessaging.getToken().then((value) {
-      print("+======= TOKEN =========+");
-      print('Token: $value');
-    });
+    String? token = await _firebaseMessaging.getToken();
+    print("+======= TOKEN =========+");
+    print('Token: $token');
 
     // Message when the app is in the background
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('+=============== On Message app background ===============+');
-      print('On Message: $message');
-    });
-
-    // Message when the app is closed
-    FirebaseMessaging.onBackgroundMessage((message) async {
-      print('+=============== On Message app closed ===============+');
-      print('On Background: $message');
+      handleFirebaseMessage(message);
+      showNotificationAsync(
+        message.notification?.title ?? 'Title',
+        message.notification?.body ?? 'Body',
+      );
     });
 
     // Message when the app is in the foreground
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('+=============== On Message app foreground ===============+');
-      print('On Message Opened App: $message');
+      handleFirebaseMessage(message);
     });
+
+    // Message when the app is closed
+    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      print('+=============== On Message app closed ===============+');
+      handleFirebaseMessage(initialMessage);
+    }
+  }
+
+  void handleFirebaseMessage(RemoteMessage message) {
+    print('Received message: ${message.notification?.title}');
+    print('Notification body: ${message.notification?.body}');
   }
 }
