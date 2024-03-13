@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_worker_sniffs/services/notification_services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ super.key });
@@ -17,18 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  late SharedPreferences _prefs;
-
   @override
   void initState() {
     super.initState();
-    _initializePrefs();
-  }
-
-  // Función auxiliar asíncrona para inicializar los prefs
-  Future<void> _initializePrefs() async {
-    _prefs = await SharedPreferences.getInstance();
-    // Puedes hacer más operaciones con los prefs aquí
+    PushNotificationProvider().initnotification; // Inicializa el servicio de notificaciones
   }
 
   @override
@@ -68,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Map<String, dynamic>? response = await login_api(_emailController.text, _passwordController.text, url: url);
 
                   if (response['status']) {
-                    _prefs.setString('type', response['type']);
                     if(response['type'] == 'manager'){
                       Navigator.popAndPushNamed(context, '/manager', arguments: response['data']);
                     }else if (response['type'] == 'callcenter') {
