@@ -12,15 +12,16 @@ import 'package:flutter_worker_sniffs/views/tecnicClient.dart';
 import 'package:flutter_worker_sniffs/views/tecnicScreen.dart';
 import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 import 'package:flutter_worker_sniffs/views/workersScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  try{
-    WidgetsFlutterBinding.ensureInitialized(); // Se asegura que inicie todo antes de ejecutar la app
-    await showNotification(); // Muestra notificaciones
-    await requestPermissions(); // Solicita permisos
-  } catch (e){
-    print(e);
-  }
+  WidgetsFlutterBinding.ensureInitialized(); // Se asegura que inicie todo antes de ejecutar la app
+  await showNotification(); // Muestra notificaciones
+  await requestPermissions(); // Solicita permisos
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform, // Inicializa Firebase
+  );
   
   runApp(const MainApp());
 }

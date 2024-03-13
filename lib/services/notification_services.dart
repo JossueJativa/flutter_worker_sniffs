@@ -16,7 +16,7 @@ Future<void> showNotification() async {
 }
 
 Future<void> showNotificationAsync() async {
-  final SharedPreferences _prefs = await SharedPreferences.getInstance();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
     'your channel id',
@@ -31,14 +31,14 @@ Future<void> showNotificationAsync() async {
     iOS: iOSPlatformChannelSpecifics,
   );
 
-  if (_prefs.getString('type') == 'manager'){
+  if (prefs.getString('type') == 'manager'){
     await flutterLocalNotificationsPlugin.show(
       0,
       'Querido Manager',
       'Hay nuevas solicitudes de clientes por revisar',
       platformChannelSpecifics,
     );
-  } else if (_prefs.getString('type') == 'tecnic'){
+  } else if (prefs.getString('type') == 'tecnic'){
     await flutterLocalNotificationsPlugin.show(
       0,
       'Querido Cliente',
