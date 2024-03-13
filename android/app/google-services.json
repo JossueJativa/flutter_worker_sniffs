@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "644895036873",
+    "project_id": "workersniffs",
+    "storage_bucket": "workersniffs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644895036873:android:078dec883358905e4d8418",
+        "android_client_info": {
+          "package_name": "com.example.flutter_worker_sniffs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ3E-eiwSRV0i4OoyLcnwuFoL9F8hNbiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

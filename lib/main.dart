@@ -14,9 +14,13 @@ import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 import 'package:flutter_worker_sniffs/views/workersScreen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Se asegura que inicie todo antes de ejecutar la app
-  await showNotification(); // Muestra notificaciones
-  await requestPermissions(); // Solicita permisos
+  try{
+    WidgetsFlutterBinding.ensureInitialized(); // Se asegura que inicie todo antes de ejecutar la app
+    await showNotification(); // Muestra notificaciones
+    await requestPermissions(); // Solicita permisos
+  } catch (e){
+    print(e);
+  }
   
   runApp(const MainApp());
 }

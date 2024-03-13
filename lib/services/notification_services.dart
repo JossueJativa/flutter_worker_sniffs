@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -14,7 +15,9 @@ Future<void> showNotification() async {
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 }
 
-Future<void> showNotificationAsync(String title, String message, String typeWorker) async {
+Future<void> showNotificationAsync() async {
+  final SharedPreferences _prefs = await SharedPreferences.getInstance();
+
   const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
     'your channel id',
     'your channel name',
@@ -28,10 +31,19 @@ Future<void> showNotificationAsync(String title, String message, String typeWork
     iOS: iOSPlatformChannelSpecifics,
   );
 
-  await flutterLocalNotificationsPlugin.show(
-    0,
-    title,
-    message,
-    platformChannelSpecifics,
-  );
+  if (_prefs.getString('type') == 'manager'){
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Querido Manager',
+      'Hay nuevas solicitudes de clientes por revisar',
+      platformChannelSpecifics,
+    );
+  } else if (_prefs.getString('type') == 'tecnic'){
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Querido Cliente',
+      'Tu solicitud ha sido aceptada',
+      platformChannelSpecifics,
+    );
+  }
 }

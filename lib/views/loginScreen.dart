@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
-import 'package:flutter_worker_sniffs/services/notification_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ super.key });
@@ -16,6 +16,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  late SharedPreferences _prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializePrefs();
+  }
+
+  // Función auxiliar asíncrona para inicializar los prefs
+  Future<void> _initializePrefs() async {
+    _prefs = await SharedPreferences.getInstance();
+    // Puedes hacer más operaciones con los prefs aquí
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,27 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Map<String, dynamic>? response = await login_api(_emailController.text, _passwordController.text, url: url);
 
                   if (response['status']) {
+                    _prefs.setString('type', response['type']);
                     if(response['type'] == 'manager'){
                       Navigator.popAndPushNamed(context, '/manager', arguments: response['data']);
-                      showNotificationAsync(
-                        'Bienvenido ${response['data']['username']}',
-                        'Iniciaste sesión como manager',
-                        'manager'
-                      );
                     }else if (response['type'] == 'callcenter') {
                       Navigator.popAndPushNamed(context, '/callcenter', arguments: response['data']);
-                      showNotificationAsync(
-                        'Bienvenido ${response['data']['username']}',
-                        'Iniciaste sesión como callcenter',
-                        'callcenter'
-                      );
                     } else if (response['type'] == 'tecnic') {
                       Navigator.popAndPushNamed(context, '/tecnic', arguments: response['data']);
-                      showNotificationAsync(
-                        'Bienvenido ${response['data']['username']}',
-                        'Iniciaste sesión como técnico',
-                        'tecnic'
-                      );
                     } else{
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -99,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
             ],
           ),
-        )
+        ) 
       )
     );
   }
