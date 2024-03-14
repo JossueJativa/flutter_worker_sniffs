@@ -1,5 +1,4 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 // Local Notifications
@@ -18,8 +17,6 @@ Future<void> showNotification() async {
 }
 
 Future<void> showNotificationAsync(String title, String message) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-
   const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
     'your channel id',
     'your channel name',
