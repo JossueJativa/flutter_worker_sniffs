@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Local Notifications
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -44,10 +45,12 @@ class PushNotificationProvider {
 
   Future<void> initnotification() async {
     await _firebaseMessaging.requestPermission();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? token = await _firebaseMessaging.getToken();
     print("+======= TOKEN =========+");
     print('Token: $token');
+    prefs.setString('token', token!);
 
     // Message when the app is in the background
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {

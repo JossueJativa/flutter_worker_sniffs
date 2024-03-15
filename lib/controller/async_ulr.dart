@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 const String _allurl = 'http://10.0.2.2:8000';
 
@@ -19,6 +20,7 @@ String encryptPassword(String password) {
 Future<Map<String, dynamic>> login_api(String? email, String? password,
     {required String url}) async {
   final url0 = Uri.parse('$_allurl/$url');
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   if (email == null || password == null) {
     return {
@@ -42,6 +44,13 @@ Future<Map<String, dynamic>> login_api(String? email, String? password,
       final responseSearch = await http.get(urlsearch);
 
       if (responseSearch.statusCode == 200) {
+        // Agregar el token del celular al usuario
+        final data = jsonDecode(responseSearch.body);
+        final url0 = Uri.parse('$_allurl/api/manager/${data[0]['id']}/');
+        final rpp = await http.patch(url0, body: {
+          'token_phone': prefs.getString('token'),
+        });
+        print(rpp.body);
         return {
           'status': true,
           'data': jsonDecode(response.body),
@@ -53,6 +62,12 @@ Future<Map<String, dynamic>> login_api(String? email, String? password,
       final responseSearchCallCenter = await http.get(urlsearch);
 
       if (responseSearchCallCenter.statusCode == 200) {
+        // Agregar el token del celular al usuario
+        final data = jsonDecode(responseSearchCallCenter.body);
+        final url0 = Uri.parse('$_allurl/api/callcenter/${data[0]['id']}/');
+        await http.patch(url0, body: {
+          'token_phone': prefs.getString('token'),
+        });
         return {
           'status': true,
           'data': jsonDecode(response.body),
@@ -64,6 +79,12 @@ Future<Map<String, dynamic>> login_api(String? email, String? password,
       final responseSearchTechnic = await http.get(urlsearch);
 
       if (responseSearchTechnic.statusCode == 200) {
+        // Agregar el token del celular al usuario
+        final data = jsonDecode(responseSearchTechnic.body);
+        final url0 = Uri.parse('$_allurl/api/tecnic/${data[0]['id']}/');
+        await http.patch(url0, body: {
+          'token_phone': prefs.getString('token'),
+        });
         return {
           'status': true,
           'data': jsonDecode(response.body),
