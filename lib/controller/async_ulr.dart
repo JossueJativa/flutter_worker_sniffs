@@ -157,6 +157,24 @@ Future<bool> createCallCenter(File image, String user, String url) async {
   }
 }
 
+Future<bool> createTecnic(File image, String user, String url) async {
+  final url0 = Uri.parse('$_allurl/$url');
+
+  try {
+    var request = http.MultipartRequest('POST', url0);
+    request.files.add(await http.MultipartFile.fromPath('photo', image.path));
+    request.fields['user'] = user;
+    var response = await request.send();
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+}
+
 Future<Map<String, dynamic>> get_workers(String url) async {
   final url0 = Uri.parse('$_allurl/$url');
   final response = await http.get(url0);

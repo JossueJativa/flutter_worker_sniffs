@@ -8,6 +8,7 @@ import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
 import 'package:flutter_worker_sniffs/models/tablesClass.dart';
+import 'package:flutter_worker_sniffs/services/notification_services.dart';
 
 class CreateClient extends StatefulWidget {
   final Map<String, dynamic> data;
@@ -214,6 +215,12 @@ class _CreateClientState extends State<CreateClient> {
                           content: Text('Cliente creado con éxito'),
                           backgroundColor: Colors.green,
                         ),
+                      );
+
+                      sendNotification(
+                        'manager',
+                        'Nuevo cliente para aceptar',
+                        'Se ha creado un nuevo cliente ${_nameController.text}',
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -7,6 +7,7 @@ import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
+import 'package:flutter_worker_sniffs/services/notification_services.dart';
 
 class ClientScreen extends StatefulWidget {
   final Map<String, dynamic> clientData;
@@ -184,6 +185,11 @@ class _ClientScreenState extends State<ClientScreen> {
 
                 if (status) {
                   Navigator.pop(context);
+                  sendNotification(
+                    'tecnic',
+                    'Comprobante aceptado',
+                    'El comprobante de ${widget.clientData['username']} ha sido aceptado',
+                  );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

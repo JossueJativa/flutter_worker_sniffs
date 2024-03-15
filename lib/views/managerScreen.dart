@@ -7,6 +7,7 @@ import 'package:flutter_worker_sniffs/controller/async_ulr.dart';
 import 'package:flutter_worker_sniffs/models/appbar_bottonbar.dart';
 import 'package:flutter_worker_sniffs/models/buttons.dart';
 import 'package:flutter_worker_sniffs/models/inputs.dart';
+import 'package:flutter_worker_sniffs/services/notification_services.dart';
 
 class ManagerScreen extends StatefulWidget {
   // Datos del usuario
@@ -173,6 +174,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
                         ),
                       );
                     } else {
+                      print(_typeController.text);
                       Map<String, dynamic> response = await create_user_api(
                         url: '/api/user/',
                         firstName: _nameController.text,
@@ -196,6 +198,11 @@ class _ManagerScreenState extends State<ManagerScreen> {
                                 backgroundColor: Colors.green,
                               ),
                             );
+                            sendNotification(
+                              'manager',
+                              'Se ha creado un nuevo trabajador',
+                              'callcenter: ${_nameController.text} ${_lastNameController.text}'
+                            );
                             Navigator.popAndPushNamed(context, '/manager',
                                 arguments: widget.data);
                           } else {
@@ -206,6 +213,37 @@ class _ManagerScreenState extends State<ManagerScreen> {
                               ),
                             );
                           }
+                        } else if (_typeController.text == "Técnico") {
+                          bool createResponse = await createTecnic(
+                              _selectedImage!,
+                              response['data']['id'].toString(),
+                              'api/tecnic/'
+                          );
+
+                          if (createResponse) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Usuario creado con éxito'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                            sendNotification(
+                              'manager',
+                              'Se ha creado un nuevo trabajador',
+                              'tecnic: ${_nameController.text} ${_lastNameController.text}'
+                            );
+                            Navigator.popAndPushNamed(context, '/manager',
+                                arguments: widget.data);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error al crear el usuario'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        }else {
+                          
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
