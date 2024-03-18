@@ -51,14 +51,10 @@ class PushNotificationProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? token = await _firebaseMessaging.getToken();
-    print("+======= TOKEN =========+");
-    print('Token: $token');
     prefs.setString('token', token!);
 
     // Message when the app is in the background
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('+=============== On Message app background ===============+');
-      handleFirebaseMessage(message);
       showNotificationAsync(
         message.notification?.title ?? 'Title',
         message.notification?.body ?? 'Body',
@@ -67,21 +63,14 @@ class PushNotificationProvider {
 
     // Message when the app is in the foreground
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('+=============== On Message app foreground ===============+');
-      handleFirebaseMessage(message);
+      showNotificationAsync(
+        message.notification?.title ?? 'Title',
+        message.notification?.body ?? 'Body',
+      );
     });
 
     // Message when the app is closed
-    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMessage != null) {
-      print('+=============== On Message app closed ===============+');
-      handleFirebaseMessage(initialMessage);
-    }
-  }
-
-  void handleFirebaseMessage(RemoteMessage message) {
-    print('Received message: ${message.notification?.title}');
-    print('Notification body: ${message.notification?.body}');
+    await FirebaseMessaging.instance.getInitialMessage();
   }
 }
 
