@@ -47,10 +47,9 @@ Future<Map<String, dynamic>> login_api(String? email, String? password,
         // Agregar el token del celular al usuario
         final data = jsonDecode(responseSearch.body);
         final url0 = Uri.parse('$_allurl/api/manager/${data[0]['id']}/');
-        final rpp = await http.patch(url0, body: {
+        await http.patch(url0, body: {
           'token_phone': prefs.getString('token'),
         });
-        print(rpp.body);
         return {
           'status': true,
           'data': jsonDecode(response.body),

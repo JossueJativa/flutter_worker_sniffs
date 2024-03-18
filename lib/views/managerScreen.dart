@@ -174,7 +174,6 @@ class _ManagerScreenState extends State<ManagerScreen> {
                         ),
                       );
                     } else {
-                      print(_typeController.text);
                       Map<String, dynamic> response = await create_user_api(
                         url: '/api/user/',
                         firstName: _nameController.text,
