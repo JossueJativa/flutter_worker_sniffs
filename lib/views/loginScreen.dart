@@ -41,20 +41,20 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               inputInfo(
                 labelText: 'Email',
-                hintText: 'Enter your email',
+                hintText: 'Ingrese su email',
                 controller: _emailController,
                 isPassword: false,
               ),
               inputInfo(
-                labelText: 'Password',
-                hintText: 'Enter your password',
+                labelText: 'Contraseña',
+                hintText: 'Ingrese su contraseña',
                 isPassword: true,
                 controller: _passwordController,
               ),
 
               const SizedBox(height: 50),
               normalButton(
-                text: 'Iniciar Sección',
+                text: 'Iniciar sesión',
                 onPressed: () async {
                   const url = 'api/user/login/';
                   Map<String, dynamic>? response = await login_api(_emailController.text, _passwordController.text, url: url);
