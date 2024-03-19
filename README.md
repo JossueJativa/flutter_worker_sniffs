@@ -7,3 +7,5 @@ A new Flutter project.
 - Servicio de envio de notificaciones
   - Enviar el token del celular a una base de datos con respecto a las personas que usaran la app móvil
   - Un usuario puede tener varios celulares y un celular le pertenece a un usuario
+- Para aplicar native_splash
+  - Se usa el comando: flutter pub run flutter_native_splash:create
