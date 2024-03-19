@@ -89,7 +89,6 @@ class _TicketScreenState extends State<TicketScreen> {
             isValid = isValid && _emailController.text.isNotEmpty;
             isValid = isValid && _descriptionController.text.isNotEmpty;
             isValid = isValid && _typeController.text.isNotEmpty;
-            isValid = isValid && _userController.text.isNotEmpty;
             if (!isValid) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
