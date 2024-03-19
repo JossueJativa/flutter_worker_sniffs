@@ -89,6 +89,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               const SizedBox(height: 20),
+
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/ticket', arguments: '');
+                }, 
+                child: const Text(
+                  'Hay algun problema?',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                )
+              ),
+
+              const SizedBox(height: 20),
             ],
           ),
         ) 

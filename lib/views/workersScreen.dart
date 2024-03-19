@@ -25,6 +25,7 @@ class _WorkersScreenState extends State<WorkersScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppbarMenu(
           name: widget.data['username'],
+          email: widget.data['email'],
         ),
       ),
       body: Container(

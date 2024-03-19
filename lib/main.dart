@@ -10,6 +10,7 @@ import 'package:flutter_worker_sniffs/views/loginScreen.dart';
 import 'package:flutter_worker_sniffs/views/managerScreen.dart';
 import 'package:flutter_worker_sniffs/views/tecnicClient.dart';
 import 'package:flutter_worker_sniffs/views/tecnicScreen.dart';
+import 'package:flutter_worker_sniffs/views/ticketScreen.dart';
 import 'package:flutter_worker_sniffs/views/workerScreen.dart';
 import 'package:flutter_worker_sniffs/views/workersScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -66,6 +67,9 @@ class MainApp extends StatelessWidget {
             ),
         '/tecnicclient': (context) => TecnicClient(
               clientData: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>,
+            ),
+        '/ticket':(context) => TicketScreen(
+          email: ModalRoute.of(context)!.settings.arguments as String,
             ),
       },
     );

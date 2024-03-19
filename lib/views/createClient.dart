@@ -46,6 +46,7 @@ class _CreateClientState extends State<CreateClient> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppbarMenu(
           name: widget.data['username'],
+          email: widget.data['email'],
         ),
       ),
       body: Container(

@@ -53,6 +53,7 @@ class _ClientScreenState extends State<ClientScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppbarMenu(
           name: widget.clientData['username'],
+          email: '',
         ),
       ),
       body: Container(

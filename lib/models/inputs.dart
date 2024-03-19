@@ -385,3 +385,64 @@ class _ShowInfoState extends State<ShowInfo> {
     }
   }
 }
+
+//Text area
+class TextArea extends StatefulWidget {
+  final String labelText;
+  final String hintText;
+  final TextEditingController controller;
+
+  const TextArea({
+    Key? key,
+    required this.labelText,
+    required this.hintText,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  _TextAreaState createState() => _TextAreaState();
+}
+
+class _TextAreaState extends State<TextArea> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.labelText,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 10),
+          TextField(
+            maxLines: 5,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: widget.labelText,
+              labelStyle: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              hintText: widget.hintText,
+              fillColor: Colors.white,
+              filled: true,
+            ),
+            controller: widget.controller,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

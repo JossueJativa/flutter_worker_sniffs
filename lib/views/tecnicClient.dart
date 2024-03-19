@@ -53,6 +53,7 @@ class _TecnicClientState extends State<TecnicClient> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppbarMenu(
           name: widget.clientData['username'],
+          email: '',
         ),
       ),
       body: Container(

@@ -52,6 +52,7 @@ class _EditclientScreenState extends State<EditclientScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppbarMenu(
           name: widget.clientData['username'],
+          email: '',
         ),
       ),
       body: Container(

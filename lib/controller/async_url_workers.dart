@@ -118,3 +118,23 @@ Future<void> changeStatusProduct(String url, String status, String id, BuildCont
     Navigator.popAndPushNamed(context, '/tecnicclient', arguments: data);
   }
 }
+
+Future<void> createTicket(String url, Map<String, dynamic> data, File foto, BuildContext context) async {
+  final url0 = Uri.parse('$_allurl/$url');
+  final request = http.MultipartRequest('POST', url0);
+  request.fields.addAll(data.map((key, value) => MapEntry(key, value.toString())));
+  request.files.add(await http.MultipartFile.fromPath('photo', foto.path));
+  final response = await request.send();
+  print(response.statusCode);
+  print(response.reasonPhrase);
+
+  if (response.statusCode == 201) {
+    Navigator.pop(context);
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Error al crear ticket'),
+      ),
+    );
+  }
+}

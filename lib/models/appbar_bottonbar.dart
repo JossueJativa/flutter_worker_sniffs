@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class AppbarMenu extends StatelessWidget {
   final String name;
-
+  final String email;
   const AppbarMenu({
     super.key,
-    required this.name,
+    required this.name, required this.email,
   });
 
   @override
@@ -23,6 +23,16 @@ class AppbarMenu extends StatelessWidget {
         ),
       ),
       actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              '/ticket',
+              arguments: email,
+            );
+          }, 
+          icon: const Icon(Icons.question_mark, color: Colors.white)
+        ),
         IconButton(
           onPressed: () {
             Navigator.popAndPushNamed(context, '/');

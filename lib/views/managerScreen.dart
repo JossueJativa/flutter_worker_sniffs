@@ -41,6 +41,7 @@ class _ManagerScreenState extends State<ManagerScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppbarMenu(
           name: widget.data['username'],
+          email: widget.data['email'],
         ),
       ),
       body: Container(
