@@ -84,7 +84,7 @@ class Tables4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TableWidget(
       apiUrl: 'api/client/', 
-      labelName: 'Lista de Managers', 
+      labelName: 'Lista de Clientes', 
       currentData: 3,
     );
   }

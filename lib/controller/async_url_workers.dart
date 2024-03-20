@@ -9,10 +9,14 @@ import 'package:http/http.dart' as http;
 
 const String _allurl = 'http://10.0.2.2:8000';
 
+const Map<String, String> _headers = {
+  'Authorization': "Token 7cfd1bef5b9f3cf44a070a0dbf47287c8ae159e2",
+};
+
 Future<void> updateClient(String url, String id, Map<String, dynamic> data,
     BuildContext context) async {
   final url0 = Uri.parse('$_allurl/$url$id/');
-  final response = await http.patch(url0, body: data);
+  final response = await http.patch(url0, headers: _headers, body: data);
 
   if (response.statusCode == 200) {
     Navigator.pop(context);
@@ -21,7 +25,7 @@ Future<void> updateClient(String url, String id, Map<String, dynamic> data,
 
 Future<void> deleteClient(String url, String id, BuildContext context) async {
   final url0 = Uri.parse('$_allurl/$url$id/');
-  final response = await http.delete(url0);
+  final response = await http.delete(url0, headers: _headers);
 
   if (response.statusCode == 204) {
     Navigator.pop(context);
@@ -30,7 +34,7 @@ Future<void> deleteClient(String url, String id, BuildContext context) async {
 
 Future<Map<String, dynamic>> get_products(String url) async {
   final url0 = Uri.parse('$_allurl/$url');
-  final response = await http.get(url0);
+  final response = await http.get(url0, headers: _headers);
 
   if (response.statusCode == 200) {
     return {
@@ -48,6 +52,7 @@ Future<bool> createClient(String url, Map<String, dynamic> dataJson, File photo_
   final request = http.MultipartRequest('POST', url0);
   request.fields.addAll(dataJson.map((key, value) => MapEntry(key, value.toString())));
   request.files.add(await http.MultipartFile.fromPath('photo_reciept', photo_reciept.path));
+  request.headers.addAll(_headers);
   final response = await request.send();
 
   if (response.statusCode == 201) {
@@ -60,14 +65,14 @@ Future<List<TableInfo>> getClientsTecnic(String url, BuildContext context) async
   List<TableInfo> clientsList = [];
   // Obtener base de datos de los clientes del tecnico
   final url0 = Uri.parse('$_allurl/$url');
-  final response = await http.get(url0);
+  final response = await http.get(url0, headers: _headers);
 
   if (response.statusCode == 200) {
     final tecnic = jsonDecode(response.body);
     final clients = tecnic[0]['clients'];
     for (var i in clients) {
       final urlClient = Uri.parse('$_allurl/api/client/$i/');
-      final responseClient = await http.get(urlClient);
+      final responseClient = await http.get(urlClient, headers: _headers);
       if (responseClient.statusCode == 200) {
         final client = jsonDecode(responseClient.body);
         clientsList.add(TableInfo(
@@ -90,14 +95,14 @@ Future<List<TableProducts>> getProductsClient(String url, BuildContext context) 
   List<TableProducts> productList = [];
   // Obtener base de datos de los clientes del tecnico
   final url0 = Uri.parse('$_allurl/$url');
-  final response = await http.get(url0);
+  final response = await http.get(url0, headers: _headers);
 
   if (response.statusCode == 200) {
     final clientProduct = jsonDecode(response.body);
     final products = clientProduct['products_bought'];
     for (var i in products) {
       final urlProduct = Uri.parse('$_allurl/api/product/$i/');
-      final responseProduct = await http.get(urlProduct);
+      final responseProduct = await http.get(urlProduct, headers: _headers);
       if (responseProduct.statusCode == 200) {
         final productrsp = jsonDecode(responseProduct.body);
         productList.add(TableProducts(
@@ -111,7 +116,7 @@ Future<List<TableProducts>> getProductsClient(String url, BuildContext context) 
 
 Future<void> changeStatusProduct(String url, String status, String id, BuildContext context, Map<String, dynamic> data) async {
   final url0 = Uri.parse('$_allurl/$url$id/');
-  final response = await http.patch(url0, body: {'status_instalation': status});
+  final response = await http.patch(url0, headers: _headers, body: {'status_instalation': status});
 
   if (response.statusCode == 200) {
     await Future.delayed(const Duration(seconds: 1));
@@ -124,9 +129,8 @@ Future<void> createTicket(String url, Map<String, dynamic> data, File foto, Buil
   final request = http.MultipartRequest('POST', url0);
   request.fields.addAll(data.map((key, value) => MapEntry(key, value.toString())));
   request.files.add(await http.MultipartFile.fromPath('photo', foto.path));
+  request.headers.addAll(_headers);
   final response = await request.send();
-  print(response.statusCode);
-  print(response.reasonPhrase);
 
   if (response.statusCode == 201) {
     Navigator.pop(context);
