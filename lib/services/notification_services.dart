@@ -79,6 +79,7 @@ Future<void> sendNotification(String typePerson, String title, String body) asyn
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
+    'Authorization': "Token 7cfd1bef5b9f3cf44a070a0dbf47287c8ae159e2",
   };
 
   Map<String, dynamic> data = {
